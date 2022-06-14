@@ -7,5 +7,9 @@ namespace web_movie.Models
 {
     public class Actor_Movies
     {
+        public int Chuvi()
+        {
+            return 0;
+        }
     }
 }
