@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +26,9 @@ namespace web_movie
         public void ConfigureServices(IServiceCollection services)
         {
             //DbContext configurations
-            services.AddDbContext<AppDbcontext>();
+            services.AddDbContext<AppDbcontext>(option => option.UseSqlServer(Configuration
+                .GetConnectionString("DefaulConnectionString")));
+
             services.AddControllersWithViews();
         }
 
@@ -55,6 +58,8 @@ namespace web_movie
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //Seed database
+            //AppDbInitalizer.Seed(app);
         }
     }
 }

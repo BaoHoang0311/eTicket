@@ -13,5 +13,7 @@ namespace web_movie.Models
         public string ProfilePicture { get; set; }
         public string FullName { get; set; }
         public string Bio { get; set; }
+        //Relationship
+        public List<Actor_Movie> Actors_Movies { get; set; }
     }
 }
