@@ -10,8 +10,11 @@ namespace web_movie.Models
     { 
         [Key]
         public int Id { get; set; }
+        [Display(Name="Cinema Logo")]
         public string Logo { get; set; }
+        [Display(Name ="Name")]
         public string Name { get; set; }
+        [Display(Name = "Descriptions")]
         public string Description { get; set; }
 
         //Relationships

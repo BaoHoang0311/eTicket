@@ -32,6 +32,5 @@ namespace web_movie.Models
         [ForeignKey("ProducerID")]
         public int ProducerID { get; set; }
         public Producer producer { get; set; }
-
     }
 }
