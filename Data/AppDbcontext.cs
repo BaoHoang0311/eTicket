@@ -22,6 +22,8 @@ namespace web_movie.Data
         // tạo các bảng với database
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
+            base.OnModelCreating(modelbuilder);
+
             // bảng Actor_Movie bảng phụ của actor và movies
             modelbuilder.Entity<Actor_Movie>().HasKey(am=> 
             new
@@ -35,9 +37,6 @@ namespace web_movie.Data
 
             modelbuilder.Entity<Actor_Movie>().HasOne(am => am.Actors)
                 .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.ActorId);
-
-            base.OnModelCreating(modelbuilder);
-
         }
     }
 }

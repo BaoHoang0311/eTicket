@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Producer>
+@{
+    ViewData["Title"] = "Producer-eTicket";
+}
+<div class="row">
+    <div class="col-md-9 offset-md-1">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(m => m.ProfilePicture)</th>
+                    <th>@Html.DisplayNameFor(m => m.FullName)</th>
+                    <th>@Html.DisplayNameFor(m => m.Bio)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle"><img class="rounded-circle" src="@item.ProfilePicture" style="max-width:150px" /></td>
+                        <td class="align-middle">@Html.DisplayFor(m => item.FullName)</td>
+                        <td class="align-middle">@Html.DisplayFor(m => item.Bio)</td>
+                        <td class="align-middle">
+                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square mr-1"></i>Edit</a>
+                            <a class="btn btn-outline-info"><i class="bi bi-eye mr-1"></i>Detail</a>
+                            <a class="btn bg-danger"><i class="bi bi-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

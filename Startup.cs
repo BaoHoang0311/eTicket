@@ -59,7 +59,7 @@ namespace web_movie
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             //Seed database
-            //AppDbInitalizer.Seed(app);
+            AppDbInitalizer.Seed(app);
         }
     }
 }
