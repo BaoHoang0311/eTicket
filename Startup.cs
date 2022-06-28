@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using web_movie.Data;
+using web_movie.Data.Services;
 
 namespace web_movie
 {
@@ -28,7 +29,8 @@ namespace web_movie
             //DbContext configurations
             services.AddDbContext<AppDbcontext>(option => option.UseSqlServer(Configuration
                 .GetConnectionString("DefaulConnectionString")));
-
+            //service confiugrations
+            services.AddScoped<IActorServices, ActorsService>();
             services.AddControllersWithViews();
         }
 
