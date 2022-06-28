@@ -11,10 +11,14 @@ namespace web_movie.Models
         [Key]
         public int Id { get; set; }
         [Display(Name ="Profile Picture URL")]
+        [Required(ErrorMessage ="Yêu cầu nhập hình ảnh")]
         public string ProfilePicture { get; set; }
         [Display(Name = "Full Name")]
+        [Required]
+        [StringLength(50,MinimumLength = 3,ErrorMessage ="chuỗi phải có độ dài 3<= và <50")]
         public string FullName { get; set; }
         [Display(Name = "Bioraphy")]
+        [Required]
         public string Bio { get; set; }
         //Relationship
         public List<Actor_Movie> Actors_Movies { get; set; }

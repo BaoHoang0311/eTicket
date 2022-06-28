@@ -1,0 +1,48 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Actor-Delete";
+}
+
+
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Xác nhận xóa Actor: @Model.FullName</h1>
+        </p>
+        <div class="row">
+
+            <div class="col-md-8 offset-2">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group text-center">
+                    <img id="ProfilePicturePreview" style="height:300px; width:300px" src="@Model.ProfilePicture" />
+                </div>
+
+                <div>
+                    <label asp-for="ProfilePicture"></label>
+                    <input asp-for="ProfilePicture" class="form-control" readonly />
+                </div>
+                <div>
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                </div>
+                <div>
+                    <label asp-for="Bio"></label>
+                    <input asp-for="Bio" class="form-control" readonly />
+                </div>
+                <form asp-action="Delete" method="Post">
+                    <div class=" mt-2">
+                        <a class="btn btn-outline-secondary" asp-controller="Actors" asp-action="Index">Show All</a>
+
+                        <input type="submit" class="btn bg-danger float-right bg"
+                               asp-route-id="@Model.Id"
+                               value="Confirm" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
