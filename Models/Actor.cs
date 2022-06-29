@@ -7,7 +7,7 @@ using web_movie.Data.Base;
 
 namespace web_movie.Models
 {
-    public class Actor : EntityID
+    public class Actor : IEntityID
     {
         [Key]
         public int Id { get; set; }

@@ -31,6 +31,7 @@ namespace web_movie
                 .GetConnectionString("DefaulConnectionString")));
             //service confiugrations
             services.AddScoped<IActorServices, ActorsService>();
+            services.AddScoped<IProducerServices,ProducerServices>();
             services.AddControllersWithViews();
         }
 

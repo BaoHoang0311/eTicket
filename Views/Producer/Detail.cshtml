@@ -1,7 +1,6 @@
-﻿@model Actor
-
+﻿@model Producer
 @{
-    ViewData["Title"] = "Actor-Details";
+    ViewData["Title"] = "Detail-Producer";
 }
 
 <div class="row text">
@@ -31,8 +30,8 @@
                 </div>
 
                 <div class=" mt-2">
-                    <a class="btn btn-outline-secondary" asp-controller="Actors" asp-action="Index">Show All</a>
-                    <a class="btn btn-outline-success float-right" asp-controller="Actors" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square mr-1"></i>Edit</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Producer" asp-action="Index">Show All</a>
+                    <a class="btn btn-outline-success float-right" asp-controller="Producer" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square mr-1"></i>Edit</a>
                 </div>
             </div>
         </div>

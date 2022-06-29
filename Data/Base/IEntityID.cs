@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace web_movie.Data.Base
 {
-    public interface EntityID
+    public interface IEntityID
     {
         int Id { get; set; }
+        string FullName { get; set; }
     }
 }

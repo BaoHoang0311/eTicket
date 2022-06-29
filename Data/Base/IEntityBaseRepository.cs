@@ -9,7 +9,7 @@ namespace web_movie.Data.Base
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetById(int id);
-        Task AddAsync(T entity);
+        Task<bool> AddAsync(T entity);
         Task<T> UpdateAsync(int id, T entity);
         Task DeleteAsync(int id);
     }
