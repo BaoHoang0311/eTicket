@@ -23,7 +23,6 @@ namespace web_movie.Data
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             base.OnModelCreating(modelbuilder);
-
             // bảng Actor_Movie bảng phụ của actor và movies
             modelbuilder.Entity<Actor_Movie>().HasKey(am=> 
             new

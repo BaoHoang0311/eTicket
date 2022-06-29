@@ -13,7 +13,7 @@
                         <div class="card-header text-white bg-warning">
                             <p class="card-text">
                                 <h5 class="card-title">
-                                    @item.Name
+                                    @item.FullName
                                     <a class="text-white float-right" asp-controller="#" asp-action="#"><i class="bi bi-pencil-square"></i></a>
                                 </h5>
                             </p>
@@ -25,7 +25,7 @@
                     <div class="col-md-7 p-0" >
                         <div class="card-body" style="height:288px">
                             <p class="card-text">@item.Description</p>
-                            <p class="card-text"><b>Cinema: </b>@item.cinema.Name </p>
+                            <p class="card-text"><b>Cinema: </b>@item.cinema.FullName </p>
                             <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd/MM/yyyy")</p>
                             <p class="card-text"><b>End Date: </b>@item.EndDay.ToString("dd/MM/yyyy")</p>

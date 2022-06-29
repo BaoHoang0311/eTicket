@@ -11,17 +11,6 @@ namespace web_movie.Controllers
 {
     public class ActorsController : Controller
     {
-        //// tương tác với database
-        //private readonly AppDbcontext _context;
-        //public ActorsController(AppDbcontext context)
-        //{
-        //    _context = context;
-        //}
-        //public IActionResult Index()
-        //{
-        //    var allactors = _context.Actors.ToList().OrderBy(m=> m.FullName);
-        //    return View(allactors);
-        //}
 
         private readonly IActorServices _service;
 
@@ -29,11 +18,16 @@ namespace web_movie.Controllers
         {
             _service = service;
         }
+
+        #region Trang chủ Actor
         public async Task<IActionResult> Index()
         {
             var allactors = await _service.GetAllAsync();
             return View(allactors);
         }
+        #endregion
+
+        #region Create
         //Get: Actors/Create
         public IActionResult Create()
         {
@@ -47,11 +41,14 @@ namespace web_movie.Controllers
             {
                 return View(actor);
             }
-            await _service.AddAsync(actor);
+            var check = await _service.AddAsync(actor);
+            if(check==false) return View("Not Found");
             // return name of index action
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Details
         //Get : Actor/Details/1
         public async Task<IActionResult> Details(int id)
         {
@@ -59,6 +56,9 @@ namespace web_movie.Controllers
             if (actorID == null) return View("Empty");
             return View(actorID);
         }
+        #endregion
+
+        #region Edit
         // Get: Actor/Edit/id
         public async Task<IActionResult> Edit(int id)
         {
@@ -81,18 +81,22 @@ namespace web_movie.Controllers
             var actor_new = await _service.UpdateAsync(id, actor);
             return RedirectToAction(nameof(Index));
         }
-        //Post: /Actors/Delete/id  /Actors/Delete/1
+        #endregion
+
+        #region Delete
+        //Post: /Actors/Delete/id ~~ /Actors/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
             var Actor = await _service.GetById(id);
             if (Actor == null) return View("Not Found");
             return View(Actor);
         }
-      [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete_X(int id)
         {
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
     }
 }

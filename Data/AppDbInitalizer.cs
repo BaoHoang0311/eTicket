@@ -23,31 +23,31 @@ namespace web_movie.Data
                     {
                         new Cinema()
                         {
-                            Name = "Cinema 1",
+                            FullName = "Cinema 1",
                             Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg",
                             Description = "This is the description of the 1 cinema"
                         },
                         new Cinema()
                         {
-                            Name = "Cinema 2",
+                            FullName = "Cinema 2",
                             Logo = "http://dotnethow.net/images/cinemas/cinema-2.jpeg",
                             Description = "This is the description of the 2 cinema"
                         },
                         new Cinema()
                         {
-                            Name = "Cinema 3",
+                            FullName = "Cinema 3",
                             Logo = "http://dotnethow.net/images/cinemas/cinema-3.jpeg",
                             Description = "This is the description of the 3 cinema"
                         },
                         new Cinema()
                         {
-                            Name = "Cinema 4",
+                            FullName = "Cinema 4",
                             Logo = "http://dotnethow.net/images/cinemas/cinema-4.jpeg",
                             Description = "This is the description of the 4 cinema"
                         },
                         new Cinema()
                         {
-                            Name = "Cinema 5",
+                            FullName = "Cinema 5",
                             Logo = "http://dotnethow.net/images/cinemas/cinema-5.jpeg",
                             Description = "This is the description of the 5 cinema"
                         }
@@ -139,7 +139,7 @@ namespace web_movie.Data
                     {
                         new Movie()
                         {
-                            Name = "Life",
+                            FullName = "Life",
                             Description = "This is the Life movie description",
                             Price = 39.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-3.jpeg",
@@ -151,7 +151,7 @@ namespace web_movie.Data
                         },
                         new Movie()
                         {
-                            Name = "The Shawshank Redemption",
+                            FullName = "The Shawshank Redemption",
                             Description = "This is the Shawshank Redemption description",
                             Price = 29.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-1.jpeg",
@@ -163,7 +163,7 @@ namespace web_movie.Data
                         },
                         new Movie()
                         {
-                            Name = "Ghost",
+                            FullName = "Ghost",
                             Description = "This is the Ghost movie description",
                             Price = 39.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-4.jpeg",
@@ -175,7 +175,7 @@ namespace web_movie.Data
                         },
                         new Movie()
                         {
-                            Name = "Race",
+                            FullName = "Race",
                             Description = "This is the Race movie description",
                             Price = 39.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-6.jpeg",
@@ -187,7 +187,7 @@ namespace web_movie.Data
                         },
                         new Movie()
                         {
-                            Name = "Scoob",
+                            FullName = "Scoob",
                             Description = "This is the Scoob movie description",
                             Price = 39.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-7.jpeg",
@@ -199,7 +199,7 @@ namespace web_movie.Data
                         },
                         new Movie()
                         {
-                            Name = "Cold Soles",
+                            FullName = "Cold Soles",
                             Description = "This is the Cold Soles movie description",
                             Price = 39.50,
                             ImageUrl = "http://dotnethow.net/images/movies/movie-8.jpeg",

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace web_movie.Data.Base
 {
-    public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T:class, EntityID,new()
+    public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T:class, IEntityID, new()
     {
         // tương tác với database
         // inject làm việc với database
@@ -21,10 +21,16 @@ namespace web_movie.Data.Base
             var data = await _context.Set<T>().ToListAsync();
             return data;
         }
-        public async Task AddAsync(T entity)
+        public async Task<bool> AddAsync(T entity)
         {
+            var check = await _context.Set<T>().FirstOrDefaultAsync(m => m.FullName == entity.FullName);
+            if (check != null)
+            {
+                return false;
+            }
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
+            return true;
         }
         public async Task DeleteAsync(int id)
         {

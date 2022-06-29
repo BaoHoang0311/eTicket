@@ -5,14 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data;
+using web_movie.Data.Base;
 
 namespace web_movie.Models
 {
-    public class Movie
+    public class Movie : IEntityID
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
         public string ImageUrl { get; set; } 

@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(m => m.Logo)</th>
-                    <th>@Html.DisplayNameFor(m => m.Name)</th>
+                    <th>@Html.DisplayNameFor(m => m.FullName)</th>
                     <th>@Html.DisplayNameFor(m => m.Description)</th>
                     <th>Action</th>
                 </tr>
@@ -23,7 +23,7 @@
                             <img class="rounded-circle" src="@item.Logo" style="max-width:120px" />
                         </td>
                         <td class="align-middle">
-                            @item.Name
+                            @item.FullName
 
                         </td>
                         <td class="align-middle">
