@@ -1,16 +1,18 @@
-﻿@model web_movie.Models.Producer
+﻿@model web_movie.NewFolder.Cinema_prop
+
 
 @{
-    ViewData["Title"] = "Producer-Create";
+    ViewData["Title"] = "Cinema-Create";
 }
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Add a new Producer</h1>
+            <h1>Add a new Cinema</h1>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Create" method="Post">
+                <form method="post" asp-action="Create" enctype="multipart/form-data"
+                      asp-controller="Cinemas">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group text-center">
@@ -19,9 +21,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="ProfilePicture"></label>
-                        <input asp-for="ProfilePicture" class="form-control" />
-                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                        <label asp-for="Logo"></label>
+                        <input asp-for="Logo" class="form-control" />
+                        <span asp-validation-for="Logo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="FullName"></label>
@@ -29,14 +31,23 @@
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Bio"></label>
-                        <input asp-for="Bio" class="form-control" />
-                        <span asp-validation-for="Bio" class="text-danger"></span>
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Gallery_FormFiles" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Gallery_FormFiles" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <span asp-validation-for="Gallery_FormFiles" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-outline-success float-right" />
-                        <a class="btn btn-outline-secondary" asp-controller="Producer" asp-action="Index">Show All</a>
+                        <a class="btn btn-outline-secondary" asp-controller="Cinemas" asp-action="Index">Show All</a>
                     </div>
                 </form>
             </div>
@@ -46,12 +57,12 @@
 
 @section Scripts{
     <script>
-        $('#ProfilePicture').ready(function () {
+        $('#Logo').ready(function () {
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $("#ProfilePicture").val();
         })
 
-        $('#ProfilePicture').on("change", function () {
+        $('#Logo').on("change", function () {
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $(this).val();
         })

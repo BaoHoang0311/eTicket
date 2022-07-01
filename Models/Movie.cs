@@ -25,13 +25,14 @@ namespace web_movie.Models
         public List<Actor_Movie> Actors_Movies { get; set; }
 
         // Cinema
-        [ForeignKey("CinemaID")]
-        public int CinemaID { get; set; }
-        public Cinema cinema { get; set; }
 
+        public int CinemaID { get; set; }
+        [ForeignKey("CinemaID")]
+        public Cinema cinema { get; set; }
+        
         // Producer 
-        [ForeignKey("ProducerID")]
         public int ProducerID { get; set; }
+        [ForeignKey("ProducerID")]
         public Producer producer { get; set; }
     }
 }

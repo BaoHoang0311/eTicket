@@ -29,9 +29,12 @@ namespace web_movie
             //DbContext configurations
             services.AddDbContext<AppDbcontext>(option => option.UseSqlServer(Configuration
                 .GetConnectionString("DefaulConnectionString")));
+
             //service confiugrations
             services.AddScoped<IActorServices, ActorsService>();
             services.AddScoped<IProducerServices,ProducerServices>();
+            services.AddScoped<ICinemaServices, CinemaServices>();
+
             services.AddControllersWithViews();
         }
 

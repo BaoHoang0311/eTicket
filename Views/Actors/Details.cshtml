@@ -1,4 +1,4 @@
-﻿@model Actor
+﻿@model web_movie.Models.Actor
 
 @{
     ViewData["Title"] = "Actor-Details";
@@ -10,12 +10,15 @@
             <h1>@Model.FullName</h1>
         </p>
         <div class="row">
-            <div class="col-md-8 offset-2">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            <div class="col-md-6">
                 <div class="form-group text-center">
                     <img id="ProfilePicturePreview" style="height:300px; width:300px" src="@Model.ProfilePicture" />
                 </div>
+            </div>
+
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div>
                     <label asp-for="ProfilePicture"></label>

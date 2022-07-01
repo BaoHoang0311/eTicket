@@ -1,4 +1,4 @@
-﻿@model Actor
+﻿@model web_movie.Models.Actor
 
 @{
     ViewData["Title"] = "Actor-Create";
@@ -9,14 +9,18 @@
             <h1>Add a new Actor</h1>
         </p>
         <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                    <div class="form-group text-center">
-                        <img id="ProfilePicturePreview" src="https://cdn.sstatic.net/Img/unified/sprites.svg?v=e5e58ae7df45" onerror="this.onerror = null;
+            <div class="col-md-6">
+                <div class="form-group text-center">
+                    <img id="ProfilePicturePreview" src="https://cdn.sstatic.net/Img/unified/sprites.svg?v=e5e58ae7df45" onerror="this.onerror = null;
                             this.src = 'https://cdn.sstatic.net/Img/unified/sprites.svg?v=e5e58ae7df45'" alt="" style="width:200px;height:200px" />
-                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+
 
                     <div class="form-group">
                         <label asp-for="ProfilePicture"></label>

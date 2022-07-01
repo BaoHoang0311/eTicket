@@ -17,8 +17,12 @@ namespace web_movie.Controllers
         {
             _services = services;
         }
+
+        #region Bind
         [BindProperty]
         public Producer producer { get; set; }
+        #endregion
+
         #region Trang chủ Producer
         public async Task<IActionResult> Index()
         {
