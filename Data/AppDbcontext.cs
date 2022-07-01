@@ -18,6 +18,7 @@ namespace web_movie.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<ImageCinemas> Image { get; set; }
 
         // tạo các bảng với database
         protected override void OnModelCreating(ModelBuilder modelbuilder)

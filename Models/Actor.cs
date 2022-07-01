@@ -19,7 +19,7 @@ namespace web_movie.Models
         [StringLength(50,MinimumLength = 3,ErrorMessage ="chuỗi phải có độ dài 3<= và <50")]
         public string FullName { get; set; }
         [Display(Name = "Bioraphy")]
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập")]
         public string Bio { get; set; }
         //Relationship
         public List<Actor_Movie> Actors_Movies { get; set; }

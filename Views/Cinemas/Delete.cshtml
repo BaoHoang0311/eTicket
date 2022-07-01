@@ -1,0 +1,77 @@
+﻿@model web_movie.Models.Cinema
+
+@{
+    ViewData["Title"] = "Cinema-Delete";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Xác nhận xóa Actor: @Model.FullName</h1>
+        </p>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group text-center">
+                    <img id="ProfilePicturePreview" style="height:300px; width:300px" src="@Model.Logo" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div>
+                    <label asp-for="Logo"></label>
+                    <input asp-for="Logo" class="form-control" readonly />
+                </div>
+
+                <div>
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                </div>
+                <div>
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" readonly />
+                </div>
+                <form asp-action="Delete" method="Post">
+                    <div class=" mt-2">
+                        <a class="btn btn-outline-secondary" asp-controller="Cinemas" asp-action="Index">Show All</a>
+
+                        <input type="submit" class="btn bg-danger float-right bg"
+                               asp-route-id="@Model.Id"
+                               value="Confirm" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (Model.images.Count > 0)
+        {
+            <div class="col-md-8 offset-2">
+                <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+                    @*dấu gạch dưới ảnh*@
+                    <ol class="carousel-indicators">
+                        @for (int i = 0; i < Model.images.Count(); i++)
+                        {
+                            <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
+                        }
+                    </ol>
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.images.Count(); i++)
+                        {
+                            <div class="@(i == 0 ? "carousel-item active" : "carousel-item") ">
+                                <img style="height:300px; width:300px" class="d-block w-100" src="@Model.images[i].FullName" alt="@Model.images[i].FullName">
+                            </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        }
+        </div>
+</div>
