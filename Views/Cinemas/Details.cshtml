@@ -39,8 +39,11 @@
         </div>
         @if (Model.images.Count > 0)
         {
-            <div class="col-md-8 offset-2">
+            <div class="col-md-8 ">
                 <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+                    <div class="text-success">
+                        <h3>Hình ảnh minh họa rạp</h3>
+                    </div>
                     @*dấu gạch dưới ảnh*@
                     <ol class="carousel-indicators">
                         @for (int i = 0; i < Model.images.Count(); i++)
@@ -53,6 +56,7 @@
                         {
                             <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
                                 <img style="height:300px; width:300px" class="d-block w-100" src="@Model.images[i].FullName" alt="@Model.images[i].FullName">
+                                <p>hình ảnh thứ: @(i+1)</p>
                             </div>
                         }
                     </div>

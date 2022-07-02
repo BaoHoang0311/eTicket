@@ -34,6 +34,7 @@ namespace web_movie
             services.AddScoped<IActorServices, ActorsService>();
             services.AddScoped<IProducerServices,ProducerServices>();
             services.AddScoped<ICinemaServices, CinemaServices>();
+            services.AddScoped<IMoviesServices, MoviesServices>();
 
             services.AddControllersWithViews();
         }
