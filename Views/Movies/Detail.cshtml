@@ -1,0 +1,121 @@
+﻿@model web_movie.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie-Detail";
+}
+<div class="row" >
+    <div class="col-md-12">
+        <div class="card-header text-white bg-warning">
+            <p class="card-text">
+                <h5 class="card-title">
+                    @Model.FullName
+                </h5>
+            </p>
+        </div>
+    </div>@*--tiêu đề phim*@
+    <div class="col-md-4 mb-3" style="height:300px">
+        <img src="@Model.ImageUrl" style="width:100%;height:100%">
+    </div>@*--hình ảnh poster phim*@
+    <div class="col-md-8 p-0">
+        <div class="card-body" style="height:288px">
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text">
+                <b>Cinema: </b>
+                <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaID">
+                    @Model.cinema.FullName
+                </a>
+            </p>
+            <p class="card-text">
+                <b>Producer: </b>
+                <a asp-controller="Producer" asp-action="Detail" asp-route-id="@Model.ProducerID">
+                    @Model.producer.FullName
+                </a>
+            </p>
+            <p class="card-text"><b>Category: </b>@Model.MovieCategory</p>
+            <p class="card-text"><b>Start Date: </b>@Model.StartDate.ToString("dd/MM/yyyy")</p>
+            <p class="card-text"><b>End Date: </b>@Model.EndDay.ToString("dd/MM/yyyy")</p>
+            <p class="card-text">
+                <b>Status: </b>
+                @if (DateTime.Now >= Model.StartDate && DateTime.Now <= Model.EndDay)
+                {
+                    <span class="badge bg-success text-white">Available</span>
+                }
+                else if (DateTime.Now < Model.StartDate)
+                {
+                    <span class="badge bg-info text-white">Upcomming</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger text-white">Expired</span>
+                }
+            </p>@*-- trạng thái phim*@
+
+        </div>
+    </div>
+
+
+
+</div>@*-- thông tin của phim*@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-footer p-0">
+            <p class="card-text">
+                <a class="btn btn-outline-primary float-right" asp-controller="Movies" asp-action="Index" ><i class="bi bi-house-door mr-2"></i>Home</a>
+                @if (DateTime.Now <= Model.EndDay)
+                {
+                    <a class="btn btn-success text-white"><i class="bi bi-cart-plus mr-1"></i>Add to Cart: @Model.Price.ToString("C2")</a>
+                }
+                else
+                {
+                    <a class="btn btn-secondary text-white"><i class="bi bi-cart-plus mr-1" aria-disabled="true"></i>Add to Cart: @Model.Price.ToString("C2")</a>
+                }
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4  ">
+        @if (Model.Actors_Movies.Count > 0)
+        {
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                <p><b>Tên các diễn viên tham gia: </b></p>
+                @*dấu gạch dưới ảnh*@
+                <ol class="carousel-indicators">
+                    @for (int i = 0; i < Model.Actors_Movies.Count; i++)
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i==0 ? "active" : "") "></li>
+                    }
+                </ol>
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Actors_Movies.Count; i++)
+                    {
+                        <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
+                            <img style="height:300px; width:300px" class="d-block w-100" src="@Model.Actors_Movies[i].Actors.ProfilePicture" alt="@Model.Actors_Movies[i].Actors.ProfilePicture">
+
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><a class="text-white" asp-controller="Actors" asp-action="Details" asp-route-id="@Model.Actors_Movies[i].ActorId">@Model.Actors_Movies[i].Actors.FullName</a></h5>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    .carousel-caption {
+        position: relative;
+        left: auto;
+        right: auto;
+    }
+</style>

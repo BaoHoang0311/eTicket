@@ -11,6 +11,7 @@ namespace web_movie.Data.Services
     public class CinemaServices : EntityBaseRepository<Cinema>, ICinemaServices
     {
         private readonly AppDbcontext _context;
+        
         public CinemaServices(AppDbcontext context) : base(context)
         {
             _context = context;
