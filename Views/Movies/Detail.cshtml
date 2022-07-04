@@ -1,9 +1,9 @@
 ﻿@model web_movie.Models.Movie
 
 @{
-    ViewData["Titile"] = "Cinema-Detail";
+    ViewData["Title"] = "Movie-Detail";
 }
-<div class="row ">
+<div class="row" >
     <div class="col-md-12">
         <div class="card-header text-white bg-warning">
             <p class="card-text">
@@ -13,7 +13,7 @@
             </p>
         </div>
     </div>@*--tiêu đề phim*@
-    <div class="col-md-4 mb-3">
+    <div class="col-md-4 mb-3" style="height:300px">
         <img src="@Model.ImageUrl" style="width:100%;height:100%">
     </div>@*--hình ảnh poster phim*@
     <div class="col-md-8 p-0">

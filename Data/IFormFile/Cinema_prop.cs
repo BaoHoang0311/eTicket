@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Models;
 
-namespace web_movie.NewFolder
+namespace web_movie.Data.IFormFile
 {
     public class Cinema_prop : Cinema
     {

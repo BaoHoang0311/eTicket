@@ -21,9 +21,9 @@
                         <td class="align-middle">@Html.DisplayFor(m => item.FullName)</td>
                         <td class="align-middle">@Html.DisplayFor(m => item.Bio)</td>
                         <td class="align-middle">
-                            <a asp-controller="Producer" asp-action="Edit"   asp-route-id="@item.Id"    class="btn btn-outline-primary"><i class="bi bi-pencil-square mr-1"></i>Edit</a>|
-                            <a asp-controller="Producer" asp-action="Detail" asp-route-id="@item.Id"  class="btn btn-outline-info"><i class="bi bi-eye mr-1"></i>Detail</a>|
-                            <a asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id"  class="btn bg-danger"><i class="bi bi-trash"></i>Delete</a>
+                            <a asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square mr-1"></i>Edit</a>|
+                            <a asp-controller="Producer" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-eye mr-1"></i>Detail</a>|
+                            <a asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" class="btn bg-danger"><i class="bi bi-trash"></i>Delete</a>
                         </td>
                     </tr>
                 }
@@ -31,6 +31,4 @@
         </table>
     </div>
 </div>
-<div class="text-white">
-    <a style="position:fixed; right:25px;top:20%" asp-controller="Producer" asp-action="Create" class="btn btn-success"><i class="rounded-circle bi-plus-circle mr-1"></i>Thêm Mới</a>
-</div>
+@await Html.PartialAsync("_CreateButton", "Producer");

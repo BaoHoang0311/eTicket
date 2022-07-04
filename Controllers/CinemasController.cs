@@ -9,9 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data;
+using web_movie.Data.IFormFile;
 using web_movie.Data.Services;
 using web_movie.Models;
-using web_movie.NewFolder;
+
 
 namespace web_movie.Controllers
 {
@@ -74,6 +75,7 @@ namespace web_movie.Controllers
                     }
                 }
             }
+
             Cinema cinema = new Cinema()
             {
                 Logo = cinema_prop.Logo,
@@ -87,6 +89,7 @@ namespace web_movie.Controllers
             if (check == false) return View("Not Found");
             return RedirectToAction(nameof(Index));
         }
+        // tạo đường dẫn lưu vào wwwroot
         private async Task<string> UploadImage(string folderPath, IFormFile file)
         {
 

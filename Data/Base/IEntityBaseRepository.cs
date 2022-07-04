@@ -10,7 +10,6 @@ namespace web_movie.Data.Base
     public interface IEntityBaseRepository<T> where T: class, new()
     {
         Task<IEnumerable<T>> GetAllAsync();
-        //Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T,object>>[] includeProperites );
         DbSet<T> Get();
         Task<T> GetById(int id);
         Task<bool> AddAsync(T entity);
