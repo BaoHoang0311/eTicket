@@ -13,5 +13,6 @@ namespace web_movie.Data.Services
         Task<MovieDropDown> Dropdown();
         Task<Movie> GetMovieByID(int id);
         Task AddNewMovie(NewMovieVM newmovieVM);
+        Task EditMovie(int id, NewMovieVM newmovieVM);
     }
 }

@@ -39,6 +39,19 @@ namespace web_movie.Controllers
         }
         #endregion
 
+        #region Search
+        public async Task<IActionResult> Filter(string searchstring)
+        {
+            var all = await _services.Get().Include(m => m.cinema).ToListAsync();
+            if (!string.IsNullOrEmpty(searchstring))
+            {
+                var result = all.Where(n => n.FullName.Contains(searchstring)).ToList();
+                return View("Index",result);
+            }
+            return View("Index",all);
+        }
+        #endregion
+
         #region Detail
         public async Task<IActionResult> Detail(int id)
         {
@@ -83,6 +96,7 @@ namespace web_movie.Controllers
             var res = await _services.GetMovieByID(id);
             NewMovieVM newmovie = new()
             {
+                Id=res.Id,
                 FullName = res.FullName,
                 Description = res.Description,
                 Price = res.Price,
@@ -92,18 +106,22 @@ namespace web_movie.Controllers
                 MovieCategory = res.MovieCategory,
                 CinemaID = res.CinemaID,
                 ProducerID = res.ProducerID,
-                
+                Ds_actor = res.Actors_Movies.Select(m => m.ActorId).ToList(),
             };
-            newmovie.Ds_actor = new();
-            foreach (var item in res.Actors_Movies)
-            {
-                newmovie.Ds_actor.Add(item.ActorId);
-            }
-
-
-
+            ////c2
+            //newmovie.Ds_actor = new();
+            //foreach (var item in res.Actors_Movies)
+            //{
+            //    newmovie.Ds_actor.Add(item.ActorId);
+            //}
 
             return View(newmovie);
+        }
+        [HttpPost,ActionName("Edit")]
+        public async Task<IActionResult> Edit(int id, NewMovieVM movies)
+        {
+            await _services.EditMovie(id, movies);
+            return RedirectToAction(nameof(Index));
         }
         #endregion
     }

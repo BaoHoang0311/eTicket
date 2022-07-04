@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-8 offset-4">
-            <form asp-action="Create">
+            <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="row">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Price" class="control-label"></label>
-                            <input asp-for="Price" type="number" class="form-control" />
+                            <input asp-for="Price" type="number" min="10" max="200" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -84,19 +84,18 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" value="Create" class="btn btn-outline-success float-right ">
-                        <i class="bi bi-send"></i> Submit
+                    <button type="submit" asp-controller="Movies"asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-success float-right ">
+                        <i class="bi bi-send"></i> Edit
                     </button>
                     <a class="btn btn-outline-secondary" asp-controller="Movies" asp-action="Index">
                         <i class="bi bi-house-door mr-2"></i>Show all
                     </a>
                 </div>
-
             </form>
-
         </div>
     </div>
 </div>
+
 @section Scripts{
 
     <script>

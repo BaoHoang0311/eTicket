@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data.Base;
 using web_movie.Data.ViewModel;
@@ -35,7 +36,7 @@ namespace web_movie.Data.Services
         }
         public async Task AddNewMovie(NewMovieVM data)
         {
-            //// C1: vẫn tự lưu vào bảng Actor_Movies
+            // // C1: vẫn tự lưu vào bảng Actor_Movies
             //Movie movie = new Movie();
             //movie = data;
 
@@ -67,6 +68,37 @@ namespace web_movie.Data.Services
                 _context.Actors_Movies.Add(dv);
             }
             //Save bảng actor_movies
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EditMovie(int id, NewMovieVM newmovieVM)
+        {
+            var data = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (data == null) return;
+
+            var res = await _context.Actors_Movies.Where(m => m.MovieId == id).ToListAsync();
+            _context.Actors_Movies.RemoveRange(res);
+            await _context.SaveChangesAsync();
+
+            data.FullName = newmovieVM.FullName;
+            data.Description = newmovieVM.Description;
+            data.Price = newmovieVM.Price;
+            data.ImageUrl = newmovieVM.ImageUrl;
+            data.StartDate = newmovieVM.StartDate;
+            data.EndDay = newmovieVM.EndDay;
+            data.MovieCategory = newmovieVM.MovieCategory;
+            data.CinemaID = newmovieVM.CinemaID;
+            data.ProducerID = newmovieVM.ProducerID;
+
+            foreach (var masodienvien in newmovieVM.Ds_actor)
+            {
+                Actor_Movie dv = new Actor_Movie()
+                {
+                    ActorId = masodienvien
+                };
+                data.Actors_Movies.Add(dv);
+            }
             await _context.SaveChangesAsync();
         }
     }
