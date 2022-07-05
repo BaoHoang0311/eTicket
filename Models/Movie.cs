@@ -23,7 +23,7 @@ namespace web_movie.Models
 
         //Relationship bẳng Actor_Movies
         public List<Actor_Movie> Actors_Movies { get; set; }
-        
+        public List<OrderItem> orderItems { get; set; }
         // Cinema
         public int CinemaID { get; set; }
         [ForeignKey("CinemaID")]
@@ -33,5 +33,7 @@ namespace web_movie.Models
         public int ProducerID { get; set; }
         [ForeignKey("ProducerID")]
         public Producer producer { get; set; }
+
+
     }
 }

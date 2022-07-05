@@ -31,6 +31,7 @@ namespace web_movie.Controllers
         {
             _services = _movies;
         }
+
         #region Trang chủ Movies
         public async Task<IActionResult> Index()
         {
@@ -84,6 +85,8 @@ namespace web_movie.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+
         #region Edit
         // Get: /Movies/Edit/id
         public async Task<IActionResult> Edit(int id)
