@@ -35,7 +35,7 @@ namespace web_movie.Controllers
         #region Trang chủ Movies
         public async Task<IActionResult> Index()
         {
-            var res = await _services.Get().Include(m => m.cinema).ToListAsync();
+            var res = await _services.Get().Include(m => m.cinema).Include(m=>m.producer).ToListAsync();
             return View(res);
         }
         #endregion
@@ -86,7 +86,6 @@ namespace web_movie.Controllers
         }
         #endregion
 
-
         #region Edit
         // Get: /Movies/Edit/id
         public async Task<IActionResult> Edit(int id)
@@ -97,6 +96,7 @@ namespace web_movie.Controllers
             ViewBag.Producers = new SelectList(drop.Producers, "Id", "FullName");
 
             var res = await _services.GetMovieByID(id);
+
             NewMovieVM newmovie = new()
             {
                 Id=res.Id,
@@ -111,6 +111,7 @@ namespace web_movie.Controllers
                 ProducerID = res.ProducerID,
                 Ds_actor = res.Actors_Movies.Select(m => m.ActorId).ToList(),
             };
+
             ////c2
             //newmovie.Ds_actor = new();
             //foreach (var item in res.Actors_Movies)
@@ -127,5 +128,8 @@ namespace web_movie.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+
+
     }
 }

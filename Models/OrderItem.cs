@@ -14,6 +14,7 @@ namespace web_movie.Models
         public int so_luong { get; set; }
         public double Price { get; set; }
 
+
         public int MovieID { get; set; }
         [ForeignKey("MovieID")]
         public  Movie Movie { get; set; }

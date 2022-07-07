@@ -13,11 +13,13 @@ namespace web_movie.Controllers
     {
         private readonly IMoviesServices _movieService;
         private readonly ShoppingCart _shoppingCart;
+        private readonly IOrderServices _orderServices;
         public OrderController(IMoviesServices movieService
-            , ShoppingCart shoppingCart)
+            , ShoppingCart shoppingCart, IOrderServices orderServices)
         {
             _movieService = movieService;
             _shoppingCart = shoppingCart;
+            _orderServices = orderServices;
         }
         public IActionResult Cart()
         {
@@ -31,19 +33,24 @@ namespace web_movie.Controllers
             };
             return View(response);
         }
-        
+        public async Task<IActionResult> Index()
+        {
+            string userId = "4";
+            var ds_hang_da_mua_voi_id = await _orderServices.GetOrdersbyUserID(userId);
+            return View(ds_hang_da_mua_voi_id);
+        }
         public async Task<IActionResult> Add(int id )
         {
             var movie = await _movieService.GetById(id);
             if(movie!= null)
-                _shoppingCart.Them_SP(movie);
+                _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
         public async Task<IActionResult> Plus_SP(int id)
         {
             var movie = await _movieService.GetById(id);
             if (movie != null)
-                _shoppingCart.Them_SP(movie);
+                _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
         public async Task<IActionResult> Tru_SP(int id)
@@ -53,5 +60,18 @@ namespace web_movie.Controllers
                 _shoppingCart.Tru_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        #region hoan tat don hang
+        public async Task<IActionResult> Hoantat()
+        {
+            var dssp = _shoppingCart.GetShoppingCartItems();
+            string userID = "";
+            string email = "";
+            await _orderServices.StoreOrder(dssp, userID, email);
+            await _shoppingCart.DeleteGioHangTam();
+
+            // localhost/Order/Hoantat
+            return View("ThankYou");
+        }
+        #endregion
     }
 }

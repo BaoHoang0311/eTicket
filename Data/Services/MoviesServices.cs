@@ -28,7 +28,7 @@ namespace web_movie.Data.Services
         public async Task<Movie> GetMovieByID(int id)
         {
             var res = await _context.Movies
-                        .Include(m => m.cinema)
+                        .Include(m => m.cinema).ThenInclude(m=>m.images)
                         .Include(m => m.producer)
                         .Include(m => m.Actors_Movies).ThenInclude(m => m.Actors)
                         .FirstOrDefaultAsync(x => x.Id == id);
@@ -80,7 +80,7 @@ namespace web_movie.Data.Services
             var res = await _context.Actors_Movies.Where(m => m.MovieId == id).ToListAsync();
             _context.Actors_Movies.RemoveRange(res);
             await _context.SaveChangesAsync();
-
+            
             data.FullName = newmovieVM.FullName;
             data.Description = newmovieVM.Description;
             data.Price = newmovieVM.Price;
@@ -99,6 +99,7 @@ namespace web_movie.Data.Services
                 };
                 data.Actors_Movies.Add(dv);
             }
+
             await _context.SaveChangesAsync();
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using web_movie.Models;
 
 namespace web_movie.Data.Cart
@@ -31,7 +32,7 @@ namespace web_movie.Data.Cart
 
             return new ShoppingCart(context) { ShoppingCartId = cartID };
         }
-        public void Them_SP(Movie movie)
+        public void Cong_SP(Movie movie)
         {
             ShoppingCartItem shoppingCartItem = _context.ShoppingCartItems
                 .FirstOrDefault(n => n.Movie.Id == movie.Id
@@ -79,6 +80,14 @@ namespace web_movie.Data.Cart
                     .Where(n => n.ShoppingCartId == ShoppingCartId)
                     .Include(m => m.Movie).ToList();
             return ds_sp;
+        }
+        public async Task DeleteGioHangTam()
+        {
+            // tìm trùng ShoppingcartID(session) để xóa
+            var dssp = await _context.ShoppingCartItems
+                .Where(x => x.ShoppingCartId == ShoppingCartId).ToListAsync();
+            _context.ShoppingCartItems.RemoveRange(dssp);
+            await _context.SaveChangesAsync();
         }
         public double TongTien()
         {

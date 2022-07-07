@@ -34,9 +34,11 @@ namespace web_movie
 
             //service confiugrations
             services.AddScoped<IActorServices, ActorsService>();
-            services.AddScoped<IProducerServices,ProducerServices>();
+            services.AddScoped<IProducerServices, ProducerServices>();
             services.AddScoped<ICinemaServices, CinemaServices>();
             services.AddScoped<IMoviesServices, MoviesServices>();
+            services.AddScoped<IOrderServices, OrderServices>();
+
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
