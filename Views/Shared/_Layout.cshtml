@@ -43,15 +43,29 @@
                             </div>
                         </li>
                     </ul>
-
-                    <form class="form-inline" asp-controller="Movies" asp-action="Filter" style="padding-right: 50px;">
+                    @*search string*@
+                    <form class="form-inline" asp-controller="Movies" asp-action="Filter" style="padding-right: 20px;">
                         <input name="searchstring" type="text" class="form-control" placeholder="Tìm kiếm moive">
                         <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
                     </form>
-
-                    <ul class="navbar-nav">
+                    @**component giỏ hàng*@
+                    <ul class="navbar-nav" style="padding-right: 20px;">
                         @await Component.InvokeAsync("ShoppingCartCP")
                     </ul>
+
+                    @*Thong tin nguoi dung*@
+                    <div class="dropdown ">
+                        <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-person mr-2"></i>Hello User
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Order" asp-action="Index">
+                                <i class="bi bi-cart mr-2"></i>Cart
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -64,7 +78,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - web_movie 
+            &copy; 2022 - web_movie
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -35,15 +35,14 @@
                                     </div>
                                 </li>
 
-                                sum1 += order_id_orderitem.so_luong * order_id_orderitem.Movie.Price;
+                                //sum1 += order_id_orderitem.so_luong * order_id_orderitem.Movie.Price;
                             }
                         </ol>
                     </td>
                     <td class="align-middle">
-                        @sum1
-                        @{
-                            sum += sum1;
-                        }
+                        @*@sum1
+                        @{ sum += sum1;} *@
+                        @order_id.orderItems.Select(m => m.Price * m.so_luong).Sum()
                     </td>
                 </tr>
             }
@@ -53,7 +52,7 @@
             <tr>
                 <td colspan="1"></td>
                 <td><b>Total: </b>: </td>
-                <td>@sum</td>
+                <td>@Model.Select(m=>m.orderItems.Select(n=>n.so_luong*n.Price).Sum()).Sum()</td>
             </tr>
         </tfoot>
     </table>

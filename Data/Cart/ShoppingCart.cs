@@ -83,7 +83,7 @@ namespace web_movie.Data.Cart
         }
         public async Task DeleteGioHangTam()
         {
-            // tìm trùng ShoppingcartID(session) để xóa
+            // tìm trùng, sp tạm thời trong ShoppingcartID(session) để xóa
             var dssp = await _context.ShoppingCartItems
                 .Where(x => x.ShoppingCartId == ShoppingCartId).ToListAsync();
             _context.ShoppingCartItems.RemoveRange(dssp);
