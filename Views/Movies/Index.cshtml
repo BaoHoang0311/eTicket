@@ -52,7 +52,7 @@
                                 <a class="btn btn-outline-primary float-right" asp-controller="Movies" asp-action="Detail" asp-route-id="@item.Id"><i class="bi bi-eye mr-2"></i>Detail</a>
                                 @if (DateTime.Now <= item.EndDay)
                                 {
-                                    <a class="btn btn-success text-white"><i class="bi bi-cart-plus mr-1"></i>Add to Cart: @item.Price.ToString("C2")</a>
+                                    <a class="btn btn-success text-white" asp-controller="Order" asp-action="Add" asp-route-id="@item.Id"><i class="bi bi-cart-plus mr-1"></i>Add to Cart: @item.Price.ToString("C2")</a>
                                 }
                                 else
                                 {

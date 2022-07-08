@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using web_movie.Data;
+using web_movie.Data.Cart;
 using web_movie.Data.Services;
 
 namespace web_movie
@@ -32,9 +34,16 @@ namespace web_movie
 
             //service confiugrations
             services.AddScoped<IActorServices, ActorsService>();
-            services.AddScoped<IProducerServices,ProducerServices>();
+            services.AddScoped<IProducerServices, ProducerServices>();
             services.AddScoped<ICinemaServices, CinemaServices>();
             services.AddScoped<IMoviesServices, MoviesServices>();
+            services.AddScoped<IOrderServices, OrderServices>();
+
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            services.AddSession();
 
             services.AddControllersWithViews();
         }
@@ -56,6 +65,8 @@ namespace web_movie
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

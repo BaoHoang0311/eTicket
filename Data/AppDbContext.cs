@@ -19,7 +19,9 @@ namespace web_movie.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<ImageCinemas> Image { get; set; }
-
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         // tạo các bảng với database
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
@@ -37,6 +39,7 @@ namespace web_movie.Data
 
             modelbuilder.Entity<Actor_Movie>().HasOne(am => am.Actors)
                 .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.ActorId);
+
         }
     }
 }
