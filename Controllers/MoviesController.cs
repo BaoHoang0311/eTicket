@@ -128,8 +128,5 @@ namespace web_movie.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
-
-
-
     }
 }
