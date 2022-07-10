@@ -33,7 +33,7 @@ namespace web_movie.Data.Services
             return orders;
         }
 
-        public async Task StoreOrder(List<ShoppingCartItem> item, string userID, string email)
+        public async Task StoreOrder(List<ShoppingCart_Item> item, string userID, string email)
         {
             Order order = new Order()
             {

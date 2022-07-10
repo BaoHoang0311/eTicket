@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace web_movie.Models
 {
-    public class ShoppingCartItem
+    public class ShoppingCart_Item
     {
         [Key]
         public int Id { get; set; }

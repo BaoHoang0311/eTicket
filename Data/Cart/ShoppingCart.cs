@@ -14,7 +14,7 @@ namespace web_movie.Data.Cart
         public AppDbcontext _context { get; set; }
 
         public string ShoppingCartId { get; set; }
-        public List<ShoppingCartItem> ds_sp { get; set; }
+        public List<ShoppingCart_Item> ds_sp { get; set; }
         public ShoppingCart(AppDbcontext context)
         {
             _context = context;
@@ -32,21 +32,28 @@ namespace web_movie.Data.Cart
 
             return new ShoppingCart(context) { ShoppingCartId = cartID };
         }
+        public List<ShoppingCart_Item> GetShoppingCartItems()
+        {
+            ds_sp = _context.ShoppingCart_Items
+                    .Where(n => n.ShoppingCartId == ShoppingCartId)
+                    .Include(m => m.Movie).ToList();
+            return ds_sp;
+        }
         public void Cong_SP(Movie movie)
         {
-            ShoppingCartItem shoppingCartItem = _context.ShoppingCartItems
+            ShoppingCart_Item shoppingCartItem = _context.ShoppingCart_Items
                 .FirstOrDefault(n => n.Movie.Id == movie.Id
                 && n.ShoppingCartId == ShoppingCartId);
 
             if (shoppingCartItem == null)
             {
-                shoppingCartItem = new ShoppingCartItem()
+                shoppingCartItem = new ShoppingCart_Item()
                 {
                     ShoppingCartId = ShoppingCartId,
                     Movie = movie,
                     Amount = 1
                 };
-                _context.ShoppingCartItems.Add(shoppingCartItem);
+                _context.ShoppingCart_Items.Add(shoppingCartItem);
             }
             else
             {
@@ -56,7 +63,7 @@ namespace web_movie.Data.Cart
         }
         public void Tru_SP(Movie movie)
         {
-            var shoppingCartItem = _context.ShoppingCartItems
+            var shoppingCartItem = _context.ShoppingCart_Items
                    .FirstOrDefault(n => n.Movie.Id == movie.Id
                     && n.ShoppingCartId == ShoppingCartId);
 
@@ -68,30 +75,24 @@ namespace web_movie.Data.Cart
                 }
                 else
                 {
-                    _context.ShoppingCartItems.Remove(shoppingCartItem);
+                    _context.ShoppingCart_Items.Remove(shoppingCartItem);
                 }
             }
             _context.SaveChanges();
         }
 
-        public List<ShoppingCartItem> GetShoppingCartItems()
-        {
-            ds_sp = _context.ShoppingCartItems
-                    .Where(n => n.ShoppingCartId == ShoppingCartId)
-                    .Include(m => m.Movie).ToList();
-            return ds_sp;
-        }
+
         public async Task DeleteGioHangTam()
         {
             // tìm trùng, sp tạm thời trong ShoppingcartID(session) để xóa
-            var dssp = await _context.ShoppingCartItems
+            var dssp = await _context.ShoppingCart_Items
                 .Where(x => x.ShoppingCartId == ShoppingCartId).ToListAsync();
-            _context.ShoppingCartItems.RemoveRange(dssp);
+            _context.ShoppingCart_Items.RemoveRange(dssp);
             await _context.SaveChangesAsync();
         }
         public double TongTien()
         {
-            var total = _context.ShoppingCartItems
+            var total = _context.ShoppingCart_Items
                 .Where(n => n.ShoppingCartId == ShoppingCartId)
                 .Select(x => x.Movie.Price * x.Amount).Sum();
             return total;
