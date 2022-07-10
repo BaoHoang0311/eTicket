@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using web_movie.Models;
 
 namespace web_movie.Data
 {
-    public class AppDbcontext : DbContext
+    public class AppDbcontext : IdentityDbContext<AppUser>
     {
         public AppDbcontext(DbContextOptions<AppDbcontext> options) : base(options)
         {
@@ -21,7 +22,7 @@ namespace web_movie.Data
         public DbSet<ImageCinemas> Image { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
-        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<ShoppingCart_Item> ShoppingCart_Items { get; set; }
         // tạo các bảng với database
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
@@ -40,6 +41,14 @@ namespace web_movie.Data
             modelbuilder.Entity<Actor_Movie>().HasOne(am => am.Actors)
                 .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.ActorId);
 
+            foreach (var entityType in modelbuilder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if (tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }
     }
 }

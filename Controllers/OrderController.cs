@@ -33,12 +33,14 @@ namespace web_movie.Controllers
             };
             return View(response);
         }
+        // Trang thống kê của khách hàng
         public async Task<IActionResult> Index()
         {
             string userId = "4";
             var ds_hang_da_mua_voi_id = await _orderServices.GetOrdersbyUserID(userId);
             return View(ds_hang_da_mua_voi_id);
         }
+        //Add to Cart (from Page Movie)
         public async Task<IActionResult> Add(int id )
         {
             var movie = await _movieService.GetById(id);
@@ -46,6 +48,7 @@ namespace web_movie.Controllers
                 _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        //Dấu Cộng trong giỏ hàng
         public async Task<IActionResult> Plus_SP(int id)
         {
             var movie = await _movieService.GetById(id);
@@ -53,6 +56,7 @@ namespace web_movie.Controllers
                 _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        //Dấu trừ trong giỏ hàng
         public async Task<IActionResult> Tru_SP(int id)
         {
             var movie = await _movieService.GetById(id);
@@ -71,6 +75,7 @@ namespace web_movie.Controllers
 
             // localhost/Order/Hoantat
             return View("ThankYou");
+            //return RedirectToAction("Detail", "Movies",new {id=2});
         }
         #endregion
     }

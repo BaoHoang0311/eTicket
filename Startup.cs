@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using web_movie.Data;
 using web_movie.Data.Cart;
 using web_movie.Data.Services;
+using web_movie.Models;
 
 namespace web_movie
 {
@@ -43,6 +46,17 @@ namespace web_movie
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
+            //Identity
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbcontext>();
+            services.AddMemoryCache();
+            services.AddAuthentication();
+
+            //services.AddAuthentication(op=>
+            //{
+            //    op.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //});
+
             services.AddSession();
 
             services.AddControllersWithViews();
@@ -68,6 +82,7 @@ namespace web_movie
 
             app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -76,7 +91,7 @@ namespace web_movie
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            //AppDb_Data.Seed_User_Role(app).Wait();
         }
     }
 }
