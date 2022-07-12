@@ -9,7 +9,6 @@ namespace web_movie.Data.Services
     public interface IOrderServices
     {
         Task StoreOrder(List<ShoppingCart_Item> item, string userID, string email);
-        Task<List<Order>> GetOrdersbyUserID(string userID="");
-        
+        Task<List<Order>> GetOrdersbyUserIDandRoleID(string RoleID,string userID = "" );
     }
 }

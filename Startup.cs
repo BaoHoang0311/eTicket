@@ -42,20 +42,15 @@ namespace web_movie
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IOrderServices, OrderServices>();
 
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             //Identity
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser , IdentityRole>()
                 .AddEntityFrameworkStores<AppDbcontext>();
-            services.AddMemoryCache();
+
             services.AddAuthentication();
 
-            //services.AddAuthentication(op=>
-            //{
-            //    op.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //});
 
             services.AddSession();
 
@@ -76,6 +71,7 @@ namespace web_movie
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -95,3 +91,9 @@ namespace web_movie
         }
     }
 }
+//services.AddMemoryCache();
+
+//services.AddAuthentication(op =>
+//{
+//    op.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//});

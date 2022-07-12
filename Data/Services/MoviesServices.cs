@@ -95,11 +95,11 @@ namespace web_movie.Data.Services
             {
                 Actor_Movie dv = new Actor_Movie()
                 {
+                    MovieId= data.Id,
                     ActorId = masodienvien
                 };
                 data.Actors_Movies.Add(dv);
             }
-
             await _context.SaveChangesAsync();
         }
     }

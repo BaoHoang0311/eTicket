@@ -12,7 +12,14 @@
                     <th>@Html.DisplayNameFor(m => m.Logo)</th>
                     <th>@Html.DisplayNameFor(m => m.FullName)</th>
                     <th>@Html.DisplayNameFor(m => m.Description)</th>
-                    <th>Action</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <th>Action</th>
+                        @await Html.PartialAsync("_CreateButton", "Cinemas")
+                    }
+
+
+
                 </tr>
             </thead>
             <tbody>
@@ -29,11 +36,14 @@
                         <td class="align-middle">
                             @cinema.Description
                         </td>
-                        <td class="align-middle">
-                            <a class="btn btn-outline-primary" asp-controller="Cinemas" asp-action="Edit" asp-route-id="@cinema.Id"><i class="bi bi-pencil-square mr-1"></i>Edit</a>|
-                            <a class="btn btn-outline-info " asp-controller="Cinemas" asp-action="Details" asp-route-id="@cinema.Id"><i class="bi bi-eye mr-1"></i>Detail</a>
-                            <a class="btn btn-danger text-warning" asp-controller="Cinemas" asp-action="Delete" asp-route-id="@cinema.Id"><i class="bi bi-trash mr-1"></i>Delete</a>
-                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-primary" asp-controller="Cinemas" asp-action="Edit" asp-route-id="@cinema.Id"><i class="bi bi-pencil-square mr-1"></i>Edit</a>|
+                                <a class="btn btn-outline-info " asp-controller="Cinemas" asp-action="Details" asp-route-id="@cinema.Id"><i class="bi bi-eye mr-1"></i>Detail</a>
+                                <a class="btn btn-danger text-warning" asp-controller="Cinemas" asp-action="Delete" asp-route-id="@cinema.Id"><i class="bi bi-trash mr-1"></i>Delete</a>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>
@@ -41,4 +51,3 @@
     </div>
 </div>
 
-@await Html.PartialAsync("_CreateButton","Cinemas");

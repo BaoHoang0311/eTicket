@@ -24,48 +24,42 @@
                             <a class="nav-link text-dark " asp-controller="Movies" asp-action="Index"><i class="badge-pill bg-info bi-film mr-1"></i>Movies</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="badge-pill bg-danger bi-gear mr-1"></i>Management
-                            </a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="badge-pill bg-danger bi-gear mr-1"></i>Management
+                                </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Producer" asp-action="Index">
-                                    <i class="bi bi-camera-reels"></i> Producers
-                                </a>
-                                <a class="dropdown-item" asp-controller="Actors" asp-action="Index">
-                                    <i class="bi bi-headset"></i>Actors
-                                </a>
-                                <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index">
-                                    <i class="bi bi-person-square"></i> Cinemas
-                                </a>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Producer" asp-action="Index">
+                                        <i class="bi bi-camera-reels"></i> Producers
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="Actors" asp-action="Index">
+                                        <i class="bi bi-headset"></i>Actors
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index">
+                                        <i class="bi bi-person-square"></i> Cinemas
+                                    </a>
+                                </div>
+                            </li>
+                            
+                        }
                     </ul>
                     @*search string*@
                     <form class="form-inline" asp-controller="Movies" asp-action="Filter" style="padding-right: 20px;">
                         <input name="searchstring" type="text" class="form-control" placeholder="Tìm kiếm moive">
                         <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+
                     @**component giỏ hàng*@
                     <ul class="navbar-nav" style="padding-right: 20px;">
                         @await Component.InvokeAsync("ShoppingCartCP")
                     </ul>
 
                     @*Thong tin nguoi dung*@
-                    <div class="dropdown ">
-                        <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="bi bi-person mr-2"></i>Hello User
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-controller="Order" asp-action="Index">
-                                <i class="bi bi-cart mr-2"></i>Cart
-                            </a>
-                        </div>
-                    </div>
+                    <partial name="_Identity.cshtml">
                 </div>
             </div>
         </nav>

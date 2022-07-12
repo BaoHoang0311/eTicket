@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser > UserManager;
+
+@if (User.Identity.IsAuthenticated == false)
+{
+    @*Log in*@
+    <a class="btn btn-outline-warning mr-2" asp-controller="Account" asp-action="LogIn">
+        <i class="bi bi-box-arrow-in-right mr-2">
+            LogIn
+        </i>
+    </a>
+
+    @*Đăng ký*@
+    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">
+        <i class="bi bi-person-plus">
+            Register
+        </i>
+    </a>
+}
+else
+{
+    @*Thong tin nguoi dung*@
+<div class="dropdown mr-2">
+    <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdown" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-person mr-2"></i>Hello @UserManager.GetUserName(User)
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" asp-controller="Order" asp-action="Index">
+            <i class="bi bi-cart mr-2"></i>Cart
+        </a>
+        <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+            <i class="bi bi-people mr-2"></i>List User
+        </a>
+    </div>
+</div>
+
+    @*SignOut*@
+    <span style="padding:5px;"></span>
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-danger">
+            <i class="bi bi-box-arrow-left mr-2"></i>LogOut
+        </button>
+    </form>
+}

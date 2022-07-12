@@ -14,10 +14,10 @@ namespace web_movie.Data
     {
         public static async Task Seed_User_Role(IApplicationBuilder applicationBuilder)
         {
-            using (var scope = applicationBuilder.ApplicationServices.CreateScope())
+            using (var servicesscope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 //Roles
-                var rolemanager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var rolemanager = servicesscope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 if (!await rolemanager.RoleExistsAsync(Role_User.Admin))
                     await rolemanager.CreateAsync(new IdentityRole(Role_User.Admin));
                 if (!await rolemanager.RoleExistsAsync(Role_User.User))
@@ -26,19 +26,21 @@ namespace web_movie.Data
                 // User
 
                 // User - Admin
-                var usermanager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+                var usermanager = servicesscope.ServiceProvider.GetService<UserManager<ApplicationUser >>();
+
                 string AdminUserEmail = "admin@ticket.com";
+
                 var adminUser = await usermanager.FindByEmailAsync(AdminUserEmail);
                 if (adminUser == null)
                 {
-                    var newAdminUser = new AppUser()
+                    var newAdminUser = new ApplicationUser ()
                     {
                         FullName = "Admin User",
                         UserName = "admin",
                         Email = AdminUserEmail,
                         EmailConfirmed = true
                     };
-                    await usermanager.CreateAsync(newAdminUser,"123");
+                    await usermanager.CreateAsync(newAdminUser, "CASter789@");
                     await usermanager.AddToRoleAsync(newAdminUser, Role_User.Admin);
                 }
 
@@ -47,14 +49,14 @@ namespace web_movie.Data
                 var User = await usermanager.FindByEmailAsync(UserEmail);
                 if (User == null)
                 {
-                    var newAppUser = new AppUser()
+                    var newAppUser = new ApplicationUser ()
                     {
                         FullName = "App User",
                         UserName ="app-user",
                         Email = UserEmail,
                         EmailConfirmed = true
                     };
-                    await usermanager.CreateAsync(newAppUser, "321");
+                    await usermanager.CreateAsync(newAppUser, "CASter789@");
                     await usermanager.AddToRoleAsync(newAppUser, Role_User.User);
                 }
             }
