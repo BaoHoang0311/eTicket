@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace web_movie.Models
 {
-    //public class ApplicationUserRole : IdentityUserRole<string>
-    //{
-    //    public  ApplicationUser  User { get; set; }
-    //    public  ApplicationRole Role { get; set; }
-    //}
+    public class ApplicationUserRole : IdentityUserRole<string>
+    {
+        public ApplicationUser User { get; set; }
+        public ApplicationRole Role { get; set; }
+    }
 }

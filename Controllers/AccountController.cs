@@ -29,7 +29,8 @@ namespace web_movie.Controllers
         public async Task<IActionResult> Users()
         {
             //var a = await _context.RoleClaims()
-            var list = await _userManager.Users
+            var list = await _context.Users
+                .Include(m=>m.UserRoles).ThenInclude(m=>m.Role)
                 .ToListAsync();
             return View(list);
         }
@@ -108,6 +109,9 @@ namespace web_movie.Controllers
             return RedirectToAction("Index", "Movies", new { });
         }
         #endregion
-
+        public IActionResult AccessDenied()
+        {
+            return RedirectToAction(nameof(LogIn));
+        }
     }
 }

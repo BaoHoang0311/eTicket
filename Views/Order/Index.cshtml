@@ -1,27 +1,33 @@
-﻿@model IEnumerable<Order>
+﻿
+@model List<IGrouping<(string, string, string), (string, string, double, int)>>
 @{
     ViewData["Title"] = "Hàng của bạn";
     int count = 0;
+    double sum1 = 0;
+    double sum2 = 0;
 }
 <style>
     table, th, td {
         border: 1px solid black;
     }
 </style>
-<div class="col-md-8 offset-2">
-    <h3>Danh sách hàng đã mua</h3>
+<div class="col-md-12">
+    <h3>Liệt kê tổng kh đã mua</h3>
     <table class="table">
         <thead>
-            <tr>
-                <th>STT</th>
-                <th>OrderID</th>
-                <th class="align-middle">Item</th>
+            <tr class="align-middle">
+                <th class="align-middle" rowspan="2">STT</th>
+                <th class="align-middle" rowspan="2">Name</th>
+                <th class="align-middle" rowspan="2">Email</th>
+                <th class="align-middle" rowspan="2">Role</th>
+                <th class="align-middle" colspan="4">Item</th>
                 <th class="align-middle">Tổng Cộng</th>
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    <th>User Name</th>
-                    <th>Info</th>
-                }
+            </tr>
+            <tr>
+                <th>Order_id</th>
+                <th>Movie Name</th>
+                <th>Price</th>
+                <th>Amount</th>
             </tr>
         </thead>
         <tbody>
@@ -31,42 +37,36 @@
                     <td class="align-middle" @{count++;}>
                         @count
                     </td>
-                    <td class="align-middle">@order_id.Id</td>
-                    <td class="align-middle">
-                        <ol class="p-3">
-                            @foreach (var order_id_orderitem in order_id.orderItems)
+                    <td class="align-middle">@order_id.Key.Item1</td>
+                    <td class="align-middle">@order_id.Key.Item2</td>
+                    <td class="align-middle">@order_id.Key.Item3</td>
+                    <td class="align-middle" colspan="4">
+                        <ol style="list-style-type:none;">
+                            @foreach (var or in order_id)
                             {
                                 <li>
-                                    <div>
-                                        <span>@order_id_orderitem.Movie.FullName-@order_id_orderitem.Movie.Price-@order_id_orderitem.so_luong</span>
-                                    </div>
+                                    <div>@or.Item1- @or.Item2- @or.Item2-@or.Item3-@or.Item4</div>
+                            
                                 </li>
+                                sum2 += or.Item3 * or.Item4;
+                                sum1 += or.Item3 * or.Item4;
+
                             }
                         </ol>
                     </td>
                     <td class="align-middle">
-                        @order_id.orderItems.Select(m => m.Price * m.so_luong).Sum()
+                        @sum1
                     </td>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <td class="align-middle">@order_id.user.FullName</td>
-                        <td class="align-middle">
-                            <a asp-controller="Account" asp-action="Info" asp-route-email="@order_id.user.Email">
-                                @order_id.user.Email
-                            </a>
-                        </td>
-                    }
                 </tr>
+                sum1 = 0;
             }
 
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="4"></td>
                 <td><b>Total: </b>: </td>
-                <td>@Model.Select(m => m.orderItems.Select(n => n.so_luong * n.Price).Sum()).Sum()</td>
+                <td>@sum2</td>
             </tr>
-
     </table>
-
 </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data;
 using web_movie.Data.Services;
+using web_movie.Data.Static;
 using web_movie.Models;
 
 namespace web_movie.Controllers
 {
+    [Authorize(Roles = Role_User.Admin)]
     public class ProducerController : Controller
     {
         private readonly IProducerServices _services;
@@ -22,7 +25,7 @@ namespace web_movie.Controllers
         [BindProperty]
         public Producer producer { get; set; }
         #endregion
-
+        [AllowAnonymous]
         #region Trang chủ Producer
         public async Task<IActionResult> Index()
         {
@@ -48,6 +51,7 @@ namespace web_movie.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+        [AllowAnonymous]
 
         #region Detail
         public async Task<IActionResult> Detail(int id)

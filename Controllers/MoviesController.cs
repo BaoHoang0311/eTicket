@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,11 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data;
 using web_movie.Data.Services;
+using web_movie.Data.Static;
 using web_movie.Data.ViewModel;
 using web_movie.Models;
 
 namespace web_movie.Controllers
 {
+    [Authorize(Roles = Role_User.Admin)]
     public class MoviesController : Controller
     {
         //// Inject AppDbContext
@@ -31,7 +34,7 @@ namespace web_movie.Controllers
         {
             _services = _movies;
         }
-
+        [AllowAnonymous]
         #region Trang chủ Movies
         public async Task<IActionResult> Index()
         {
@@ -39,7 +42,7 @@ namespace web_movie.Controllers
             return View(res);
         }
         #endregion
-
+        [AllowAnonymous]
         #region Search
         public async Task<IActionResult> Filter(string searchstring)
         {
@@ -52,7 +55,7 @@ namespace web_movie.Controllers
             return View("Index",all);
         }
         #endregion
-
+        [AllowAnonymous]
         #region Detail
         public async Task<IActionResult> Detail(int id)
         {

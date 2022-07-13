@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,19 +8,19 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using web_movie.Data.Cart;
 using web_movie.Data.Services;
+using web_movie.Data.Static;
 using web_movie.Data.ViewModel;
 using web_movie.Models;
 
 namespace web_movie.Controllers
 {
+    [Authorize(Roles = Role_User.Admin)]
     public class OrderController : Controller
     {
         private readonly IMoviesServices _movieService;
         private readonly ShoppingCart _shoppingCart;
         private readonly IOrderServices _orderServices;
 
-        //private readonly UserManager<AppUser> _userManager;
-        //private readonly SignInManager<AppUser> _signInManager;
         public OrderController(IMoviesServices movieService
             , ShoppingCart shoppingCart, IOrderServices orderServices
             )
@@ -27,9 +28,8 @@ namespace web_movie.Controllers
             _movieService = movieService;
             _shoppingCart = shoppingCart;
             _orderServices = orderServices;
-
-
         }
+        [AllowAnonymous]
         // bấm vào giỏ hàng thấy hàng đang mua, tìm kiếm thông qua giỏ hàng tạm (ShoppingCart_Item)
         public IActionResult Cart()
         {
@@ -46,13 +46,13 @@ namespace web_movie.Controllers
         // bấm vào giỏ hàng thấy hàng đã mua
         public async Task<IActionResult> Index()
         {
-            
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userRole = User.FindFirstValue(ClaimTypes.Role);
             var ds_hang_da_mua_voi_id_role_cua_minh = await _orderServices.GetOrdersbyUserIDandRoleID(userRole, userId);
             return View(ds_hang_da_mua_voi_id_role_cua_minh);
 
         }
+        [AllowAnonymous]
         // Add to Cart (from Page Movie)
         public async Task<IActionResult> Add(int id)
         {
@@ -61,6 +61,7 @@ namespace web_movie.Controllers
                 _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        [AllowAnonymous]
         // Dấu Cộng trong giỏ hàng
         public async Task<IActionResult> Plus_SP(int id)
         {
@@ -69,6 +70,7 @@ namespace web_movie.Controllers
                 _shoppingCart.Cong_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        [AllowAnonymous]
         // Dấu trừ trong giỏ hàng
         public async Task<IActionResult> Tru_SP(int id)
         {

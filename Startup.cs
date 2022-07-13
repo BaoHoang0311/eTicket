@@ -46,7 +46,7 @@ namespace web_movie
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             //Identity
-            services.AddIdentity<ApplicationUser , IdentityRole>()
+            services.AddIdentity<ApplicationUser , ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbcontext>();
 
             services.AddAuthentication();

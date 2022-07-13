@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using web_movie.Data;
 using web_movie.Data.Services;
+using web_movie.Data.Static;
 using web_movie.Models;
 
 namespace web_movie.Controllers
 {
+    [Authorize(Roles = Role_User.Admin)]
     public class ActorsController : Controller
     {
 
@@ -18,7 +21,7 @@ namespace web_movie.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         #region Trang chủ Actor
         public async Task<IActionResult> Index()
         {
@@ -48,6 +51,7 @@ namespace web_movie.Controllers
         }
         #endregion
 
+        [AllowAnonymous]
         #region Details
         //Get : Actor/Details/1
         public async Task<IActionResult> Details(int id)

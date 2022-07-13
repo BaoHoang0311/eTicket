@@ -12,7 +12,7 @@ namespace web_movie.Models
         [Display(Name="FullName")]
         public string FullName { get; set; }
 
-        //public List<ApplicationUserRole> UserRoles { get; set; }
+        public List<ApplicationUserRole> UserRoles { get; set; }
 
     }
 }

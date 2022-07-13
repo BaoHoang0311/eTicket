@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,13 @@ using System.Threading.Tasks;
 using web_movie.Data;
 using web_movie.Data.IFormFile;
 using web_movie.Data.Services;
+using web_movie.Data.Static;
 using web_movie.Models;
 
 
 namespace web_movie.Controllers
 {
+    [Authorize(Roles = Role_User.Admin)]
     public class CinemasController : Controller
     {
         private readonly ICinemaServices _service;
@@ -26,12 +29,11 @@ namespace web_movie.Controllers
             _service = service;
             _webHostEnvironment = webHostEnvironment;
         }
-
         #region Bind
         [BindProperty]
         public Cinema_prop cinema { get; set; }
         #endregion
-
+        [AllowAnonymous]
         #region Trang chủ Actor
         public async Task<IActionResult> Index()
         {
@@ -102,7 +104,7 @@ namespace web_movie.Controllers
             return "/" + folderPath;
         }
         #endregion
-
+        [AllowAnonymous]
         #region Details
         //Get : Cinemas/Details/1
         public async Task<IActionResult> Details(int id)
@@ -123,7 +125,6 @@ namespace web_movie.Controllers
             }
             return View(cinemas);
         }
-
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Cinema cinema)
         {
