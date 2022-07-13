@@ -25,13 +25,15 @@ namespace web_movie.Data.Cart
                 .GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
 
             var context = service.GetService<AppDbcontext>();
-
+            
             string cartID = session.GetString("CartId") ?? Guid.NewGuid().ToString();
 
             session.SetString("CartId", cartID);
 
             return new ShoppingCart(context) { ShoppingCartId = cartID };
         }
+        // giỏ hàng tạm thời
+        // bấm vào giỏ hàng thấy hàng mua tìm thông qua thằng ShoppingCartId==session
         public List<ShoppingCart_Item> GetShoppingCartItems()
         {
             ds_sp = _context.ShoppingCart_Items
@@ -80,11 +82,9 @@ namespace web_movie.Data.Cart
             }
             _context.SaveChanges();
         }
-
-
         public async Task DeleteGioHangTam()
         {
-            // tìm trùng, sp tạm thời trong ShoppingcartID(session) để xóa
+            // tìm sp tạm thời trong ShoppingcartID(session) để xóa
             var dssp = await _context.ShoppingCart_Items
                 .Where(x => x.ShoppingCartId == ShoppingCartId).ToListAsync();
             _context.ShoppingCart_Items.RemoveRange(dssp);

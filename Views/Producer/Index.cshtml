@@ -10,7 +10,11 @@
                     <th>@Html.DisplayNameFor(m => m.ProfilePicture)</th>
                     <th>@Html.DisplayNameFor(m => m.FullName)</th>
                     <th>@Html.DisplayNameFor(m => m.Bio)</th>
-                    <th>Action</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <th>Action</th>
+                        @await Html.PartialAsync("_CreateButton", "Producer");
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -21,9 +25,12 @@
                         <td class="align-middle">@Html.DisplayFor(m => item.FullName)</td>
                         <td class="align-middle">@Html.DisplayFor(m => item.Bio)</td>
                         <td class="align-middle">
-                            <a asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square mr-1"></i>Edit</a>|
-                            <a asp-controller="Producer" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-eye mr-1"></i>Detail</a>|
-                            <a asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" class="btn bg-danger"><i class="bi bi-trash"></i>Delete</a>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square mr-1"></i>Edit</a>
+                                <a asp-controller="Producer" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-eye mr-1"></i>Detail</a>
+                                <a asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" class="btn bg-danger"><i class="bi bi-trash"></i>Delete</a>
+                            }
                         </td>
                     </tr>
                 }
@@ -31,4 +38,3 @@
         </table>
     </div>
 </div>
-@await Html.PartialAsync("_CreateButton", "Producer");

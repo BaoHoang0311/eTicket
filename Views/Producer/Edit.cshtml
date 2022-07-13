@@ -34,10 +34,13 @@
 
                     <div class=" mt-2">
                         <a class="btn btn-outline-secondary" asp-controller="Producer" asp-action="Index">Show All</a>
-                        <input type="submit" class="btn btn-primary float-right"
-                               asp-controller="Producer" asp-action="Edit"
-                               asp-route-id="@Model.Id"
-                               value="Confirm" />
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <input type="submit" class="btn btn-primary float-right"
+                                   asp-controller="Producer" asp-action="Edit"
+                                   asp-route-id="@Model.Id"
+                                   value="Confirm" />
+                        }
                     </div>
                 </form>
             </div>

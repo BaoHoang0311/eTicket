@@ -14,22 +14,18 @@ namespace web_movie.Data.Services
         {
             _context = context;
         }
-        public async Task<List<Order>> GetOrdersbyUserID(string userID)
-        {
-            var orders = new List<Order>();
-            if (userID == "")
-            {
-                orders = await _context.Order.Include(m => m.orderItems).ThenInclude(m => m.Movie)
-                .Where(m => m.UserID == userID).ToListAsync();
 
+        public async Task<List<Order>> GetOrdersbyUserIDandRoleID (string RoleID,string userID)
+        {
+            var orders = await _context.Order
+                    .Include(m => m.user)
+                    .Include(m => m.orderItems).ThenInclude(m => m.Movie)
+                    .ToListAsync();
+            if (RoleID != "Admin" )
+            {
+                orders = orders.Where(m => m.UserID == userID).ToList();
                 return orders;
             }
-
-            orders = await _context.Order.Include(m => m.orderItems)
-                .ThenInclude(m => m.Movie)
-                .Where(m=>m.UserID==userID)
-                .ToListAsync();
-
             return orders;
         }
 
@@ -47,10 +43,10 @@ namespace web_movie.Data.Services
             {
                 OrderItem orderitem = new OrderItem()
                 {
-                    OrderID=order.Id,
-                    so_luong=sp.Amount,
-                    MovieID=sp.Movie.Id,
-                    Price=sp.Movie.Price
+                    OrderID = order.Id,
+                    so_luong = sp.Amount,
+                    MovieID = sp.Movie.Id,
+                    Price = sp.Movie.Price
                 };
                 await _context.OrderItem.AddAsync(orderitem);
             }

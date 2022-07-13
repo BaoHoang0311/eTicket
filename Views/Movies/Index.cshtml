@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Movie>
 
 @{
-    ViewData["Title"] = "List of Movie-eTicket";
+    ViewData["Title"] = "List of Movies-eTicket";
 }
 <div class="row">
     @foreach (var item in Model)
@@ -14,7 +14,11 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.FullName
-                                    <a class="text-white float-right" asp-controller="Movies" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-controller="Movies" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                        @await Html.PartialAsync("_CreateButton", "Movies");
+                                    }
                                 </h5>
                             </p>
                         </div>
@@ -66,4 +70,3 @@
         </div>
     }
 </div>
-@await Html.PartialAsync("_CreateButton", "Movies")

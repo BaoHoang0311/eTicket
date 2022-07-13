@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace web_movie.Models
 {
-    public class AppUser: IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Display(Name="FullName")]
         public string FullName { get; set; }
+
+        //public List<ApplicationUserRole> UserRoles { get; set; }
+
     }
 }
