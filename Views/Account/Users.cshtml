@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ApplicationUser >
+﻿@model IEnumerable<ApplicationUser>
 
-@{               
+@{
     ViewData["Title"] = "Danh sách Users";
 }
 <div>
@@ -17,7 +17,9 @@
                 <th class="align-middle">
                     @Html.DisplayNameFor(m => m.Email)
                 </th>
- 
+                <th>
+                    Role
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,11 @@
                     <td>@user.UserName</td>
                     <td>@user.FullName</td>
                     <td>@user.Email</td>
+                    @foreach (var item in user.UserRoles)
+                    {
+                        <td>@item.Role.Name</td>
+                    }
+
                 </tr>
             }
         </tbody>

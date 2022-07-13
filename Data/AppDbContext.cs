@@ -9,10 +9,10 @@ using web_movie.Models;
 
 namespace web_movie.Data
 {
-    //public class AppDbcontext : IdentityDbContext< ApplicationUser ,ApplicationRole,string,
-    //            IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
-    //            IdentityRoleClaim<string>, IdentityUserToken<string>  >
-    public class AppDbcontext : IdentityDbContext<ApplicationUser>
+    public class AppDbcontext : IdentityDbContext<ApplicationUser, ApplicationRole, string,
+                IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
+                IdentityRoleClaim<string>, IdentityUserToken<string>>
+    //public class AppDbcontext : IdentityDbContext<ApplicationUser>
     {
         public AppDbcontext(DbContextOptions<AppDbcontext> options) : base(options)
         {
@@ -46,22 +46,22 @@ namespace web_movie.Data
                 .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.ActorId);
 
             // User -UserRole-Role
-            //modelbuilder.Entity<ApplicationUser >(b =>
-            //{
-            //    b.HasMany(e => e.UserRoles)
-            //        .WithOne(e => e.User)
-            //        .HasForeignKey(ur => ur.UserId)
-            //        .IsRequired();
-            //});
+            modelbuilder.Entity<ApplicationUser>(b =>
+            {
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
 
-            //modelbuilder.Entity<ApplicationRole>(b =>
-            //{
-            //    // Each Role can have many entries in the UserRole join table
-            //    b.HasMany(e => e.UserRoles)
-            //        .WithOne(e => e.Role)
-            //        .HasForeignKey(ur => ur.RoleId)
-            //        .IsRequired();
-            //});
+            modelbuilder.Entity<ApplicationRole>(b =>
+            {
+                // Each Role can have many entries in the UserRole join table
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.Role)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+            });
 
             // đổi tên bảng thôi 
             //foreach (var entityType in modelbuilder.Model.GetEntityTypes())

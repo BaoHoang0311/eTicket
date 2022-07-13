@@ -15,20 +15,43 @@ namespace web_movie.Data.Services
             _context = context;
         }
 
-        public async Task<List<Order>> GetOrdersbyUserIDandRoleID (string RoleID,string userID)
+        public async Task<List<IGrouping<(string, string, string), (string,string,double,int)>>> GetOrdersbyUserIDandRoleID(string RoleID, string userID)
         {
-            var orders = await _context.Order
-                    .Include(m => m.user)
-                    .Include(m => m.orderItems).ThenInclude(m => m.Movie)
-                    .ToListAsync();
-            if (RoleID != "Admin" )
+            //var orders1 = await _context.Order
+            //        .Include(m => m.user)
+            //        .Include(m => m.orderItems).ThenInclude(m => m.Movie)
+            //        .ToListAsync();
+
+            var sp = from or in _context.Order
+                     join or_item in _context.OrderItem on or.Id equals or_item.OrderID
+                     join movie in _context.Movies on or_item.MovieID equals movie.Id
+                     join b in _context.UserRoles on or.UserID equals b.UserId
+                     join name in _context.Users on b.UserId equals name.Id
+                     select new
+                     {
+                         or_id = or.Id.ToString(),
+                         user_id = or.UserID,
+                         name =name.UserName,
+                         email = or.Email,
+                         role = b.Role.Name,
+                         movie_name = movie.FullName,
+                         movie_price =movie.Price,
+                         so_luong = or_item.so_luong
+                     };
+
+            var orders = new List<IGrouping<( string, string, string), (string,string, double,int)>>();
+
+            if (RoleID != "Admin")
             {
-                orders = orders.Where(m => m.UserID == userID).ToList();
-                return orders;
+                var orders12 = (from s in sp.AsEnumerable()
+                                where s.user_id == userID
+                                group (s.or_id, s.movie_name,s.movie_price,s.so_luong) by (s.name, s.email, s.role)).ToList();
+                return orders12;
             }
+            orders = (from s in sp.AsEnumerable()
+                      group (s.or_id, s.movie_name, s.movie_price, s.so_luong) by (s.name, s.email, s.role)).ToList();
             return orders;
         }
-
         public async Task StoreOrder(List<ShoppingCart_Item> item, string userID, string email)
         {
             Order order = new Order()

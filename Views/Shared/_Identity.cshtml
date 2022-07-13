@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@inject UserManager<ApplicationUser > UserManager;
+@inject UserManager<ApplicationUser> UserManager;
 
 @if (User.Identity.IsAuthenticated == false)
 {
@@ -20,21 +20,26 @@
 else
 {
     @*Thong tin nguoi dung*@
-<div class="dropdown mr-2">
-    <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdown" role="button"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="bi bi-person mr-2"></i>Hello @UserManager.GetUserName(User)
-    </a>
+    <div class="dropdown mr-2">
+        <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person mr-2"></i>Hello @UserManager.GetUserName(User)
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" asp-controller="Order" asp-action="Index">
+                <i class="bi bi-cart mr-2"></i>Cart
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                    <i class="bi bi-people mr-2"></i>List User
+                </a>
+            }
 
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" asp-controller="Order" asp-action="Index">
-            <i class="bi bi-cart mr-2"></i>Cart
-        </a>
-        <a class="dropdown-item" asp-controller="Account" asp-action="Users">
-            <i class="bi bi-people mr-2"></i>List User
-        </a>
+        </div>
+
     </div>
-</div>
+
 
     @*SignOut*@
     <span style="padding:5px;"></span>

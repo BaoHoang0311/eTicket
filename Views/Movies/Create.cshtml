@@ -25,58 +25,58 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="FullName" class="control-label"></label>
+                            <label asp-for="FullName"></label>
                             <input asp-for="FullName" class="form-control" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="StartDate" class="control-label"></label>
+                            <label asp-for="StartDate" ></label>
                             <input asp-for="StartDate" type="date" class="form-control" />
                             <span asp-validation-for="StartDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="EndDay" class="control-label"></label>
+                            <label asp-for="EndDay" ></label>
                             <input asp-for="EndDay" type="date" class="form-control" />
                             <span asp-validation-for="EndDay" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Price" class="control-label"></label>
+                            <label asp-for="Price" ></label>
                             <input asp-for="Price" type="number" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ImageUrl" class="control-label"></label>
+                            <label asp-for="ImageUrl" ></label>
                             <input asp-for="ImageUrl" class="form-control" />
                             <span asp-validation-for="ImageUrl" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="CinemaID" class="control-label"></label>
+                            <label asp-for="CinemaID" ></label>
                             <select asp-for="CinemaID" class="form-control" asp-items="ViewBag.Cinemas"></select>
                             <span asp-validation-for="CinemaID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="MovieCategory" class="control-label"></label>
+                            <label asp-for="MovieCategory" ></label>
                             <select asp-for="MovieCategory" class="form-control" asp-items="Html.GetEnumSelectList<MovieCategory>()"></select>
                             <span asp-validation-for="MovieCategory" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="ProducerID" class="control-label"></label>
+                            <label asp-for="ProducerID" ></label>
                             <select asp-for="ProducerID" class="form-control" asp-items="ViewBag.Producers"></select>
                             <span asp-validation-for="ProducerID" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Ds_actor" class="control-label"></label>
+                            <label asp-for="Ds_actor" ></label>
                             <select asp-for="Ds_actor" class="form-control" asp-items="ViewBag.Actors" multiple></select>
                             <span asp-validation-for="Ds_actor" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="Description" class="control-label"></label>
+                            <label asp-for="Description" ></label>
                             <textarea asp-for="Description" class="form-control"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
