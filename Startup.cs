@@ -85,7 +85,7 @@ namespace web_movie
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Movies}/{action=Index}/{id?}");
             });
             //AppDb_Data.Seed_User_Role(app).Wait();
         }
