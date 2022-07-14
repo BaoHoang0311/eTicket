@@ -115,7 +115,7 @@ namespace web_movie.Controllers
                 Ds_actor = res.Actors_Movies.Select(m => m.ActorId).ToList(),
             };
 
-            ////c2
+            // //c2
             //newmovie.Ds_actor = new();
             //foreach (var item in res.Actors_Movies)
             //{

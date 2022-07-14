@@ -82,6 +82,7 @@ namespace web_movie.Controllers
 
             ApplicationUser  newuser = new()
             {
+				// FullName là custom
                 FullName = registerViewModel.FullName,
                 Email = registerViewModel.EmailAddress,
                 UserName = registerViewModel.EmailAddress,
@@ -90,7 +91,7 @@ namespace web_movie.Controllers
 
             if (newuserpas_response.Succeeded)
             {
-                await _userManager.AddToRoleAsync(newuser, Role_User.User);
+				await _userManager.AddToRoleAsync(newuser, Role_User.User);
                 return View("RegisterComplete");
             }
 
