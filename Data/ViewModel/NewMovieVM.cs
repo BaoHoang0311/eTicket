@@ -7,7 +7,6 @@ namespace web_movie.Data.ViewModel
 {
     public class NewMovieVM : Movie
     {
-        public new int Id { get; set; }
         [Display(Name = "Chọn diễn viên (multi-select)")]
         [Required(ErrorMessage = "Chọn Ds diễn viên")]
         public List<int> Ds_actor { get; set; }

@@ -28,8 +28,10 @@ namespace web_movie.Data.Services
         public async Task<Movie> GetMovieByID(int id)
         {
             var res = await _context.Movies
+                        // join bảng hình ảnh của cinema đó ra show
                         .Include(m => m.cinema).ThenInclude(m=>m.images)
                         .Include(m => m.producer)
+                        // join bảng actor_movie và bảng actor lấy tên dv
                         .Include(m => m.Actors_Movies).ThenInclude(m => m.Actors)
                         .FirstOrDefaultAsync(x => x.Id == id);
             return res;
@@ -47,6 +49,7 @@ namespace web_movie.Data.Services
             //    {
             //        ActorId = masodienvien,
             //    };
+            //    // khi add tự thêm thằng movieId vào luôn
             //    movie.Actors_Movies.Add(dv);
             //}
             //await _context.Movies.AddAsync(movie);
@@ -77,6 +80,7 @@ namespace web_movie.Data.Services
 
             if (data == null) return;
 
+            // remove tên diễn viên
             var res = await _context.Actors_Movies.Where(m => m.MovieId == id).ToListAsync();
             _context.Actors_Movies.RemoveRange(res);
             await _context.SaveChangesAsync();
@@ -90,6 +94,7 @@ namespace web_movie.Data.Services
             data.MovieCategory = newmovieVM.MovieCategory;
             data.CinemaID = newmovieVM.CinemaID;
             data.ProducerID = newmovieVM.ProducerID;
+            await _context.SaveChangesAsync();
 
             foreach (var masodienvien in newmovieVM.Ds_actor)
             {
@@ -98,7 +103,7 @@ namespace web_movie.Data.Services
                     MovieId= data.Id,
                     ActorId = masodienvien
                 };
-                data.Actors_Movies.Add(dv);
+                _context.Actors_Movies.Add(dv);
             }
             await _context.SaveChangesAsync();
         }
