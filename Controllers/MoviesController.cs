@@ -49,7 +49,7 @@ namespace web_movie.Controllers
             var all = await _services.Get().Include(m => m.cinema).ToListAsync();
             if (!string.IsNullOrEmpty(searchstring))
             {
-                var result = all.Where(n => n.FullName.Contains(searchstring)).ToList();
+                var result = all.Where(n => n.FullName.Contains(searchstring.ToLower())).ToList();
                 return View("Index",result);
             }
             return View("Index",all);
