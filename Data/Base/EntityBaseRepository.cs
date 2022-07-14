@@ -51,12 +51,6 @@ namespace web_movie.Data.Base
             await _context.SaveChangesAsync();
             return entity;
         }
-        public async Task<IEnumerable<T>> GetAllAsync (params Expression<Func<T, object>>[] includeProperites)
-        {
-            IQueryable<T> querry = _context.Set<T>();
-            querry = includeProperites.Aggregate(querry, (current, includeProperites) => current.Include(includeProperites));
-            return await querry.ToListAsync();
-        }
         public DbSet<T> Get()
         {
             return _context.Set<T>();
