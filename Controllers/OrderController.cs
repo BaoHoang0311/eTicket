@@ -50,7 +50,6 @@ namespace web_movie.Controllers
             string userRole = User.FindFirstValue(ClaimTypes.Role);
             var ds_hang_da_mua_voi_id_role_cua_minh = await _orderServices.GetOrdersbyUserIDandRoleID(userRole, userId);
             return View(ds_hang_da_mua_voi_id_role_cua_minh);
-
         }
         [AllowAnonymous]
         // Add to Cart (from Page Movie)

@@ -128,7 +128,6 @@ namespace web_movie.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Cinema cinema)
         {
-            
             if (cinema == null)
             {
                 return View(cinema);

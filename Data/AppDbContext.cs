@@ -24,9 +24,12 @@ namespace web_movie.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<ImageCinemas> Image { get; set; }
+
+        //order
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
         public DbSet<ShoppingCart_Item> ShoppingCart_Items { get; set; }
+
         // tạo các bảng với database
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
@@ -40,12 +43,14 @@ namespace web_movie.Data
             });
 
             modelbuilder.Entity<Actor_Movie>().HasOne(am => am.Movies)
-                .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.MovieId);
+                .WithMany(m => m.Actors_Movies)
+                .HasForeignKey(am => am.MovieId);
 
             modelbuilder.Entity<Actor_Movie>().HasOne(am => am.Actors)
-                .WithMany(m => m.Actors_Movies).HasForeignKey(am => am.ActorId);
+                                            .WithMany(m => m.Actors_Movies)
+                                            .HasForeignKey(am => am.ActorId);
 
-            // User -UserRole-Role
+            // User - UserRole - Role
             modelbuilder.Entity<ApplicationUser>(b =>
             {
                 b.HasMany(e => e.UserRoles)
@@ -64,14 +69,14 @@ namespace web_movie.Data
             });
 
             // đổi tên bảng thôi 
-            //foreach (var entityType in modelbuilder.Model.GetEntityTypes())
-            //{
-            //    var tableName = entityType.GetTableName();
-            //    if (tableName.StartsWith("AspNet"))
-            //    {
-            //        entityType.SetTableName(tableName.Substring(6));
-            //    }
-            //}
+            foreach (var entityType in modelbuilder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if (tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }
     }
 }
