@@ -73,7 +73,6 @@ namespace web_movie.Data.Services
             //Save bảng actor_movies
             await _context.SaveChangesAsync();
         }
-
         public async Task EditMovie(int id, NewMovieVM newmovieVM)
         {
             var data = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);

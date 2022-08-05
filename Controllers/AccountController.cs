@@ -14,8 +14,8 @@ namespace web_movie.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser > _userManager;
-        private readonly SignInManager<ApplicationUser > _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppDbcontext _context;
 
         public AccountController(UserManager<ApplicationUser > userManager,
@@ -28,12 +28,12 @@ namespace web_movie.Controllers
         // lấy toàn bộ danh sách mua hàng role admin
         public async Task<IActionResult> Users()
         {
-            //var a = await _context.RoleClaims()
             var list = await _context.Users
                 .Include(m=>m.UserRoles).ThenInclude(m=>m.Role)
                 .ToListAsync();
             return View(list);
         }
+		
         #region Đăng nhập
         public IActionResult LogIn()
         {
@@ -102,6 +102,7 @@ namespace web_movie.Controllers
             return View(registerViewModel);
         }
         #endregion
+		
         #region LogOut
         [HttpPost]
         public async Task<IActionResult> Logout()
