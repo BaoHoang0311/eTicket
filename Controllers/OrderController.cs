@@ -44,11 +44,11 @@ namespace web_movie.Controllers
             return View(res);
         }
         // bấm vào giỏ hàng thấy hàng đã mua
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userRole = User.FindFirstValue(ClaimTypes.Role);
-            var ds_hang_da_mua_voi_id_role_cua_minh = await _orderServices.GetOrdersbyUserIDandRoleID(userRole, userId);
+            var ds_hang_da_mua_voi_id_role_cua_minh =  _orderServices.GetOrdersbyUserIDandRoleID(userRole, userId);
             return View(ds_hang_da_mua_voi_id_role_cua_minh);
         }
         [AllowAnonymous]
@@ -78,6 +78,7 @@ namespace web_movie.Controllers
                 _shoppingCart.Tru_SP(movie);
             return RedirectToAction(nameof(Cart));
         }
+        [AllowAnonymous]
         #region hoan tat don hang
         public async Task<IActionResult> Hoantat()
         {

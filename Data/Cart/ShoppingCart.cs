@@ -12,7 +12,6 @@ namespace web_movie.Data.Cart
     public class ShoppingCart
     {
         public AppDbcontext _context { get; set; }
-
         public string ShoppingCartId { get; set; }
         public List<ShoppingCart_Item> ds_sp { get; set; }
         public ShoppingCart(AppDbcontext context)
@@ -25,9 +24,8 @@ namespace web_movie.Data.Cart
                 .GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
 
             var context = service.GetService<AppDbcontext>();
-            
-            string cartID = session.GetString("CartId") ?? Guid.NewGuid().ToString();
 
+            string cartID = session.GetString("CartId")?? Guid.NewGuid().ToString();
             session.SetString("CartId", cartID);
 
             return new ShoppingCart(context) { ShoppingCartId = cartID };
