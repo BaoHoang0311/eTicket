@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,7 +26,7 @@ namespace web_movie.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-        // lấy toàn bộ danh sách mua hàng role admin
+        // danh sách các users
         public async Task<IActionResult> Users()
         {
             var list = await _context.Users
@@ -60,6 +61,15 @@ namespace web_movie.Controllers
             }
             TempData["Eror"] = "tài khoản không tồn tại";
             return View(logInVIewModel);
+        }
+        #endregion
+
+        #region LogOut
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Movies", new { });
         }
         #endregion
 
@@ -103,14 +113,7 @@ namespace web_movie.Controllers
         }
         #endregion
 		
-        #region LogOut
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Movies", new { });
-        }
-        #endregion
+
         public IActionResult AccessDenied()
         {
             return RedirectToAction(nameof(LogIn));

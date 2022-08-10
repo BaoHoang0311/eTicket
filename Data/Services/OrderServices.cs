@@ -15,12 +15,8 @@ namespace web_movie.Data.Services
             _context = context;
         }
 
-        public async Task<List<IGrouping<(string, string, string), (string,string,double,int)>>> GetOrdersbyUserIDandRoleID(string RoleID, string userID)
+        public List<IGrouping<(string, string, string), (string,string,double,int)>> GetOrdersbyUserIDandRoleID(string RoleID, string userID)
         {
-            //var orders1 = await _context.Order
-            //        .Include(m => m.user)
-            //        .Include(m => m.orderItems).ThenInclude(m => m.Movie)
-            //        .ToListAsync();
 
             var sp = from or in _context.Order
                      join or_item in _context.OrderItem on or.Id equals or_item.OrderID

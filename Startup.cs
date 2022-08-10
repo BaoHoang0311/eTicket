@@ -51,7 +51,10 @@ namespace web_movie
 
             services.AddAuthentication();
 
-            services.AddSession(options => { options.Cookie.Name = "web_movie.Session"; });
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "web_movie.Session"; 
+            });
             services.AddControllersWithViews();
         }
 

@@ -26,7 +26,7 @@ namespace web_movie.Data
                 // User
 
                 // User - Admin
-                var usermanager = servicesscope.ServiceProvider.GetService<UserManager<ApplicationUser >>();
+                var usermanager = servicesscope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
                 string AdminUserEmail = "admin@ticket.com";
 
