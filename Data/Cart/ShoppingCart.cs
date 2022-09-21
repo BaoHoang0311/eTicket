@@ -25,13 +25,13 @@ namespace web_movie.Data.Cart
 
             var context = service.GetService<AppDbcontext>();
 
-            string cartID = session.GetString("CartId")?? Guid.NewGuid().ToString();
+            string cartID = session.GetString("CartId") ?? Guid.NewGuid().ToString();
             session.SetString("CartId", cartID);
 
             return new ShoppingCart(context) { ShoppingCartId = cartID };
         }
         // giỏ hàng tạm thời
-        // bấm vào giỏ hàng thấy hàng mua tìm thông qua thằng ShoppingCartId==session
+        // bấm vào giỏ hàng thấy hàng đang mua tìm thông qua thằng ShoppingCartId == session
         public List<ShoppingCart_Item> GetShoppingCartItems()
         {
             ds_sp = _context.ShoppingCart_Items
@@ -42,8 +42,8 @@ namespace web_movie.Data.Cart
         public void Cong_SP(Movie movie)
         {
             ShoppingCart_Item shoppingCartItem = _context.ShoppingCart_Items
-                .FirstOrDefault(n => n.Movie.Id == movie.Id
-                && n.ShoppingCartId == ShoppingCartId);
+                                                    .FirstOrDefault(n => n.Movie.Id == movie.Id
+                                                    && n.ShoppingCartId == ShoppingCartId);
 
             if (shoppingCartItem == null)
             {
