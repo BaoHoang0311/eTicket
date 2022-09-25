@@ -34,7 +34,6 @@ namespace web_movie.Controllers
                 .ToListAsync();
             return View(list);
         }
-		//zz
         #region Đăng nhập
         public IActionResult LogIn()
         {
