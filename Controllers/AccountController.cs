@@ -79,6 +79,10 @@ namespace web_movie.Controllers
         #region Đăng ký
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Movies");
+            }
             return View(new RegisterViewModel());
         }
         [HttpPost]
