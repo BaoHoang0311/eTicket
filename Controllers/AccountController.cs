@@ -37,6 +37,10 @@ namespace web_movie.Controllers
         #region Đăng nhập
         public IActionResult LogIn()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Movies");
+            }
             return View(new LogInVIewModel());
         }
         [HttpPost]
