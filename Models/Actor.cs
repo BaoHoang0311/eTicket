@@ -21,6 +21,7 @@ namespace web_movie.Models
         [Display(Name = "Bioraphy")]
         [Required(ErrorMessage = "Yêu cầu nhập")]
         public string Bio { get; set; }
+
         //Relationship
         public List<Actor_Movie> Actors_Movies { get; set; }
     }

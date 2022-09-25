@@ -107,7 +107,7 @@ namespace web_movie.Controllers
 				await _userManager.AddToRoleAsync(newuser, Role_User.User);
                 return View("RegisterComplete");
             }
-
+            // hiển lỗi
             List<IdentityError> errorList = newuserpas_response.Errors.ToList();
             var errors = string.Join(",", errorList.Select(e => e.Description));
             TempData["Eror"] = errors;

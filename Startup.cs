@@ -42,6 +42,7 @@ namespace web_movie
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IOrderServices, OrderServices>();
 
+            // Cart
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 

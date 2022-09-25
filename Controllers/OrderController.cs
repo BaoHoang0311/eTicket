@@ -43,7 +43,7 @@ namespace web_movie.Controllers
             };
             return View(res);
         }
-        // bấm vào giỏ hàng thấy hàng đã mua
+        // bấm vào history mua hàng thấy hàng đã mua
         public IActionResult Index()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

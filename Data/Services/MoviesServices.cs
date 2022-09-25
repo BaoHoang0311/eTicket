@@ -17,13 +17,13 @@ namespace web_movie.Data.Services
         }
         public async Task<MovieDropDown> Dropdown()
         {
-            var responce = new MovieDropDown()
+            var response = new MovieDropDown()
             {
                 Actors = await _context.Actors.ToListAsync(),
                 Cinemas = await _context.Cinemas.ToListAsync(),
                 Producers = await _context.Producers.ToListAsync()
             };
-            return responce;
+            return response;
         }
         public async Task<Movie> GetMovieByID(int id)
         {
